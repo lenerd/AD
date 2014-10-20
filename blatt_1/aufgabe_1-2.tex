@@ -1,13 +1,6 @@
 \documentclass[a4paper]{scrartcl}
 
-% font/encoding packages
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage[ngerman]{babel}
-
-\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
-\allowdisplaybreaks
+\input{preamble}
 
 \title{Algorithmen und Datenstrukturen}
 \subtitle{Übungsblatt 1 - Aufgabe 2}
@@ -19,6 +12,58 @@
 \begin{document}
 \maketitle
 
+\begin{enumerate}[(a)]
+    \item
+        \begin{behaupt}
+            \begin{equation}
+                F_n \geq 2^{\num{0,5}n} \text{ für alle } n \geq 6
+            \end{equation}
+        \end{behaupt}
+        \begin{proof}[Beweis durch vollständige Induktion] \hfill \\
+            \textbf{Induktions-Anfang} $n = 6$ \\
+            \begin{equation}
+                8 = F_6 \geq 2^{\num{0.5}n} = 8
+            \end{equation}
+            Gelte die Behauptung für ein festes $n \in \mathbb{N}$.
+
+            \textbf{Induktions-Schritt} \\
+            \begin{equation}
+                \begin{split}
+                    F_{n+1} = F_{n} + F_{n-1} &\geq 2^{\num{0,5}n} + 2^{\num{0,5}(n-1)} \\
+                    \gdw F_{n+1} &\geq 2^{\num{0,5}n} + 2^{\num{0,5}n} \cdot \frac{1}{\sqrt{2}} \\
+                    \gdw F_{n+1} &\geq 2^{\num{0,5}n} \cdot \left( 1 + \frac{1}{\sqrt{2}} \right) \\
+                    \gdw F_{n+1} &\geq 2^{\num{0,5}n} \cdot \left( 1 + \frac{1}{\sqrt{2}} \right)  \geq 2^{\num{0,5}n} \cdot \sqrt{2} \\
+                    \gdw F_{n+1} &\geq 2^{\num{0,5}n} \cdot \left( 1 + \frac{1}{\sqrt{2}} \right)  \geq 2^{\num{0,5}(n+1)} \\
+                    \gdw F_{n+1} &\geq  2^{\num{0,5}(n+1)}
+                \end{split}
+            \end{equation}
+        \end{proof}
+
+    \item
+        \begin{behaupt}
+            \begin{equation}
+                F_n \leq 2^{cn} \text{ für alle } n \geq 0 \text{ und } c = \num{0,7}
+            \end{equation}
+        \end{behaupt}
+        \begin{proof}[Beweis durch vollständige Induktion] \hfill \\
+            \textbf{Induktions-Anfang} $n = 0$ \\
+            \begin{equation}
+                0 = F_0 \leq 2^{\num{0.7} \cdot 0} = 1
+            \end{equation}
+            Gelte die Behauptung für ein festes $n \in \mathbb{N}$.
+
+            \textbf{Induktions-Schritt} \\
+            \begin{equation}
+                \begin{split}
+                    F_{n+1} = F_n + F_{n-1} &\leq 2^{\num{0,7}n} + 2^{\num{0,7}(n-1)} \\
+                    \gdw F_{n+1} &\leq 2^{\num{0,7}n} + 2^{\num{0,7}n} \cdot 2^{\num{-0,7}} \\
+                    \gdw F_{n+1} &\leq 2^{\num{0,7}n} \cdot \left( 1 + 2^{\num{-0,7}} \right) \\
+                    \gdw F_{n+1} &\leq 2^{\num{0,7}n} \cdot \left( 1 + 2^{\num{-0,7}} \right) \leq 2^{\num{0,7}n} \cdot 2^{\num{0,7}} \\
+                    \gdw F_{n+1} &\leq 2^{\num{0,7}(n+1)} \\
+                \end{split}
+            \end{equation}
+        \end{proof}
+\end{enumerate}
 
 
 \end{document}
