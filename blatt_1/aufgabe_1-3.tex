@@ -1,13 +1,6 @@
 \documentclass[a4paper]{scrartcl}
 
-% font/encoding packages
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage[ngerman]{babel}
-
-\usepackage{amsmath, amssymb, amsfonts, amsthm, mathtools}
-\allowdisplaybreaks
+\input{preamble}
 
 \title{Algorithmen und Datenstrukturen}
 \subtitle{Übungsblatt 1 - Aufgabe 3}
@@ -19,6 +12,120 @@
 \begin{document}
 \maketitle
 
+\begin{enumerate}[(a)]
+    \item
+        \begin{behaupt}
+            \begin{equation}
+                \begin{pmatrix}
+                    F_n \\ F_{n+1}
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                    0 & 1 \\
+                    1 & 1
+                \end{pmatrix}^n
+                \cdot
+                \begin{pmatrix}
+                    F_0 \\ F_1
+                \end{pmatrix}
+                \text{ für alle } n \geq 0
+            \end{equation}
+        \end{behaupt}
+        \begin{proof}[Beweis durch vollständige Induktion] \hfill \\
+            \textbf{Induktions-Anfang} $n = 0$ \\
+            \begin{equation}
+                \begin{pmatrix}
+                    0 & 1 \\
+                    1 & 1
+                \end{pmatrix}^0
+                \cdot
+                \begin{pmatrix}
+                    F_0 \\ F_1
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                    1 & 0 \\
+                    0 & 1
+                \end{pmatrix}
+                \cdot
+                \begin{pmatrix}
+                    F_0 \\ F_1
+                \end{pmatrix}
+                =
+                \begin{pmatrix}
+                    F_0 \\ F_1
+                \end{pmatrix}
+            \end{equation}
+            Gelte die Behauptung für ein festes $n \in \mathbb{N}$.
 
+            \textbf{Induktions-Schritt} \\
+            \begin{equation}
+                \begin{split}
+                    \begin{pmatrix}
+                        0 & 1 \\
+                        1 & 1
+                    \end{pmatrix}
+                    \cdot
+                    \begin{pmatrix}
+                        F_n \\ F_{n+1}
+                    \end{pmatrix}
+                    &=
+                    \begin{pmatrix}
+                        0 \cdot F_0 + 1 \cdot F_{n+1} \\
+                        1 \cdot F_0 + 1 \cdot F_{n+1} \\
+                    \end{pmatrix} \\
+                    \stackrel{(\star)}{\gdw}
+                    \begin{pmatrix}
+                        0 & 1 \\
+                        1 & 1
+                    \end{pmatrix}
+                    \cdot
+                    \begin{pmatrix}
+                        F_n \\ F_{n+1}
+                    \end{pmatrix}
+                    &=
+                    \begin{pmatrix}
+                        F_n \\ F_{n+1}
+                    \end{pmatrix} \\
+                    \stackrel{(\star\star)}{\gdw}
+                    \begin{pmatrix}
+                        0 & 1 \\
+                        1 & 1
+                    \end{pmatrix}
+                    \cdot
+                    \begin{pmatrix}
+                        0 & 1 \\
+                        1 & 1
+                    \end{pmatrix}^n
+                    \cdot
+                    \begin{pmatrix}
+                        F_0 \\ F_1
+                    \end{pmatrix}
+                    &=
+                    \begin{pmatrix}
+                        F_n \\ F_{n+1}
+                    \end{pmatrix} \\
+                    \stackrel{(\star\star)}{\gdw}
+                    \begin{pmatrix}
+                        0 & 1 \\
+                        1 & 1
+                    \end{pmatrix}^{n+1}
+                    \cdot
+                    \begin{pmatrix}
+                        F_0 \\ F_1
+                    \end{pmatrix}
+                    &=
+                    \begin{pmatrix}
+                        F_n \\ F_{n+1}
+                    \end{pmatrix}
+                \end{split}
+            \end{equation}
+            $(\star)$ Definition der Fibonacci-Folge \\
+            $(\star\star)$ Induktions-Annahme
+        \end{proof}
+
+    \item
+    \item
+\end{enumerate}
 
 \end{document}
