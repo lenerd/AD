@@ -12,9 +12,9 @@
 \begin{document}
 \maketitle
 
-\begin{enumerate}
+\begin{enumerate}[(a)]
     \item
-        \begin{equation}[(a)]
+        \begin{equation}
             \begin{gathered}
                 \frac{1}{n}
                 \prec
@@ -238,7 +238,7 @@
                     \begin{behaupt}
                         Für $f_c(n) = \sum_{i=0}^n c^i$ und $c \in \mathbb{R}^+$ gilt
                         \begin{equation}
-                            f_c(n) \in \Theta \gdw c = 1 \text{ .}
+                            f_c(n) \in \Theta(n) \gdw c = 1 \text{ .}
                         \end{equation}
                     \end{behaupt}
                     \begin{proof}
@@ -257,11 +257,11 @@
                                 \frac{1-c^{n+1}}{1-c} & \text{, wenn } c \neq 1 \\
                             \end{cases}
                         \end{equation}
-                        Sei $n = 1$.
+                        Sei $c = 1$.
                         \begin{equation}
                             f_c(n) = n + 1 \in \Theta(n)
                         \end{equation}
-                        Sei $n \neq 1$.
+                        Sei $c \neq 1$.
                         \begin{equation}
                             \begin{gathered}
                                 \begin{split}
