@@ -1,0 +1,49 @@
+\documentclass[a4paper]{scrartcl}
+
+\input{preamble}
+
+\title{Algorithmen und Datenstrukturen}
+\subtitle{Übungsblatt 1 - Aufgabe 1}
+\author{
+%    anonymous
+}
+\date{zum 21. Oktober 2014}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+    \item
+        \begin{enumerate}[(a)]
+            \item
+            Wieviele Kanten hat ein k-närer Baum der Tiefe ` mit insgesamt n Knoten?\\
+            
+			Ein k-närer Baum hat \textit{n-1} Knoten, da jeder Knoten außer der Wurzelknoten eine Kante 
+			zum Elternknoten hat.\\
+            
+            \item
+            Wieviele Knoten liegen maximal in Level \textit{l} >= 0 ?\\
+            
+            Level \textit{l} = 0 -> 1 Knoten, Level \textit{l} = 1 -> maximal 1 * k = $k^1$ Knoten,\\
+            Level \textit{l} = 2 -> maximal 1 * k * k = $k^2$ Knoten, usw., also sind es in Level \textit{l}
+            maximal $k^l$ Knoten.\\
+            
+            \item
+            Wieviele Knoten hat ein voller Baum der Tiefe \textit{l} insgesamt?\\
+            
+            Summer aller Ebenen bei einem vollen Baum $\sum_{i=0}^n c^i$ = $\frac{k^{l+1}-1}{k-1}$ *\\
+            (*) harmonische Reihe für q != 1\\
+            
+            \item
+            Wieviele Knoten hat ein vollständiger Baum der Tiefe \textit{l} insgesamt?\\
+			
+			Im letzten Level des vollständigen Baums muss mindestens 1 Knoten sein, was bedeutet, 
+			dass bis zu $k^{l-1}-1$ Knoten fehlen dürfen. \\
+			D.h. es gibt $\frac{k^{l+1}-1}{k-1}-(k^{l}-1)$ = $\frac{k^{l}-1}{k-1}+1$ Knoten.
+        \end{enumerate}
+        
+        
+\end{enumerate}
+
+
+\end{document}
