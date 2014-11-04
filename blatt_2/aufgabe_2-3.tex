@@ -1,0 +1,78 @@
+\documentclass[a4paper]{scrartcl}
+
+\input{preamble}
+
+\title{Algorithmen und Datenstrukturen}
+\subtitle{Übungsblatt 2 - Aufgabe 3}
+\author{
+    anonymous
+}
+\date{zum 4. November 2014}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[(a)]
+    \item
+        Es werden die üblichen Operationen eines Stacks vorrausgesetzt
+        (push, pop, isempty, \ldots).
+
+        Alle Elemente werden bei \textsc{Enqueue} zunächst auf den Stack $Q.A$
+        gelegt.
+        Bei \textsc{Dequeue} wird das oberste Element von $Q.B$ zurückgegeben.
+        Ist dieser leer, so werden zuvor die Elemente von $Q.A$ auf $Q.B$
+        umgeschichtet.
+        In der Folge wird die Reihenfolge umgekehrt, sodass die gewünschte
+        FIFO-Eigenschaft erfüllt wird.
+        Jedes Element, befindet sich jeweils genau einmal auf jedem Stack.
+
+        \begin{algorithm}
+            \caption{\textsc{Enqueue}$(Q, val)$}
+            \begin{algorithmic}[1]
+            \Require Eine Queue $Q$ mit den Stacks $Q.A$ und $Q.B$.
+                Ein Wert $val$.
+            \Ensure $val$ wird ans Ende der Queue angefügt.
+            \State push($val$, $Q.A$)
+            \end{algorithmic}
+        \end{algorithm}
+
+        \begin{algorithm}
+            \caption{\textsc{Dequeue}$(Q)$}
+            \begin{algorithmic}[1]
+            \Require Eine nicht leere Queue $Q$ mit den Stacks $Q.A$ und $Q.B$.
+            \Ensure Das vorderste Element der Queue wird zurückgegeben.
+            \If{isempty($Q.B$)}
+                \While{not isempty($Q.A$)}
+                    \State push($Q.B$, pop($Q.A$))
+                \EndWhile
+            \EndIf
+            \State \Return pop($Q.B$)
+            \end{algorithmic}
+        \end{algorithm}
+        Da \textsc{Enqueue} aus einer einzigen Operation besteht, gilt
+        \begin{equation}
+            \textsc{Enqueue} \in \mathcal{O}\left( 1 \right) \text{ .}
+        \end{equation}
+        Im Worst-Case, befinden sich $n$ Elemente auf $Q.A$ und $Q.B$ ist leer.
+        Bei \textsc{Dequeue} müssen alle $n$ Elemente auf den zweiten Stack
+        verschoben werden.
+        Die Funktion ist also linear von $n$ abhängig:
+        \begin{equation}
+            \textsc{Denqueue} \in \mathcal{O}\left( n \right) \text{ .}
+        \end{equation}
+        
+    \item
+        Der Worst-Case für die Funktionsfolge wäre, wenn alle $n_E$ Elemente
+        auf $Q.B$ geschoben werden (z.\,B. $n_E = n-1$, $n_D = 1$: Zunächst
+        werden $n_E$ \textsc{Enqueue}, dann eine \textsc{Dequeue} ausgeführt.)
+        \begin{align*}
+            T_n \in \mathcal{O}(n) \\
+            \frac{T_n}{n} \in \mathcal{O}(1)
+        \end{align*}
+        
+        
+
+\end{enumerate}
+
+
+\end{document}
