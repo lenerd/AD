@@ -59,20 +59,36 @@
         \end{tabular}
 
     \item
-        % In einem $k$-nären Heap mit $n$ Elementen benötigt die
-        % \textsc{Heapify}-Operation
-        % \begin{equation}
-        %     T(n) = \Big\lceil \underbrace{k}_{(1)} \cdot \underbrace{\log_k (n)}_{(2)} \Big\rceil
-        %     \text{ Schritte.}
-        % \end{equation}
-        % Wobei $T_n$ sich wie folgt zusammensetzt:
-        % \begin{enumerate}[(1)]
-        %     \item Die Anzahl der Kinder.
-        %     \item Die Anzahl der Elemente.
-        % \end{enumerate}
-        % Verwaltet jeder Knoten seine Kinder in einem binären Heap, so muss (1)
-        % durch die Anzahl der Schritte zum Finden (und ggf. Vertauschen) des
-        % Maximums des binären Heaps ersetzt werden.
+        In einem $k$-nären Heap mit $n$ Elementen benötigt die
+        \textsc{Heapify}-Operation
+        \begin{equation}
+            \label{eq:heapify}
+            T(n) = \Big\lceil \underbrace{k}_{(1)} \cdot \underbrace{\log_k (n)}_{(2)} \Big\rceil
+            \text{ Schritte.}
+        \end{equation}
+        Wobei Gleichung \eqref{eq:heapify} sich wie folgt zusammensetzt:
+        \begin{enumerate}[(1)]
+            \item Schritte zum Finden (und ggf. Vertauschen) des Maximums der
+                $k$ Kinder.
+            \item Die Anzahl der Level.
+        \end{enumerate}
+        Verwaltet jeder Knoten seine Kinder in einem binären Heap, so muss (1)
+        durch die Anzahl der Schritte zum Finden (und ggf. Vertauschen) des
+        Maximums des binären Heaps ersetzt werden.
+        Dies geschieht mir den Operationen \textsc{ExtractMax} und
+        \textsc{InsertElement}, welche beide im Worst-Case $\lceil \log_2 n \rceil$ Schritte
+        benötigen.
+        Da der Heap $k$ Elemente (die Kinder) enthält, sind es maximal
+        $\lceil 2 \log_2 k\rceil$ Schritte.
+        \begin{equation}
+            T'(n) = \Big\lceil 2 \cdot \log_2 (k) \cdot \log_k (n) \Big\rceil
+        \end{equation}
+        Es gilt $T'(n) \in \bigo \left( \log k \cdot \log n \right)$, während
+        man von $T(n)$ nur $T(n) \in \bigo \left( k \cdot \log n \right)$
+        sagen kann.
+        Durch die Verwaltung der Kindknoten in einem binären Heap verbessert
+        sich die Gesamtlaufzeit der \textsc{Heapify} Operation im Worst-Case.
+        
 
     \item 
         \begin{enumerate}[(i)]
