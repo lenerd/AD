@@ -1,0 +1,203 @@
+\documentclass[a4paper]{scrartcl}
+
+\input{preamble}
+
+\title{Algorithmen und Datenstrukturen}
+\subtitle{Übungsblatt 2 - Aufgabe 4}
+\author{
+    anonymous
+}
+\date{zum 4. November 2014}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[(a)]
+    \item Sei n eine fest gewählte Zahl unf $D(f) = \mathbb{R}_{>1}$.
+        \begin{align}
+            f(x) &= x \log_x (n) = \ln(n) \cdot \frac{x}{\ln(x)} \\
+            \frac{\dif}{\dif x} f(x) &= \ln(n) \cdot \frac{\ln(x)-1}{\ln^2(x)} \\
+            \frac{\dif}{\dif x} f(e) &= \ln(n) \cdot \frac{\ln(e)-1}{\ln^2(e)}
+            = \ln(n) \cdot \frac{1-1}{1} = 0 \\
+            \frac{\dif^2}{\dif x^2} f(x) &= \ln(n) \cdot \frac{-\ln(x)+2}{x \cdot \ln^3(x)} \\
+            \frac{\dif^2}{\dif x^2} f(e) &= \ln(n) \cdot \frac{-\ln(e)+2}{e \cdot \ln^3(e)}
+            = \ln(n) \cdot \frac{1}{e} > 0
+        \end{align}
+        $f$ besitzt ein Minimum bei $x=e$.
+
+    \item Plot von $f$ mit $n=2$
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    axis lines=middle,
+                    axis equal,
+                    xlabel=$x_1$,
+                    ylabel=$x_2$,
+                    width=1.0\textwidth,
+                    xmin = 0, xmax = 10,
+                    ymin = 0, ymax = 10,
+                    x axis line style={name path=xaxis}
+                ]
+                    \addplot
+                    [name path=f, samples=200, domain=0:10]
+                    {ln(2)*x/ln(x)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+        Da das Minimum bei $e$ liegt, wählen wir $\lceil e \rceil = 3$ als $k^*$. \\
+        \begin{tabular}{r|r|r}
+            $n$    & $\lceil k \log_k (n) \rceil, k=2$ & $\lceil k \log_k (n) \rceil, k^* = 3$ \\ \hline
+            $10^1$ &\num{7}  &\num{7}  \\
+            $10^2$ &\num{14} &\num{13} \\
+            $10^3$ &\num{20} &\num{19} \\
+            $10^4$ &\num{27} &\num{26} \\
+            $10^5$ &\num{34} &\num{32} \\
+            $10^6$ &\num{40} &\num{38} \\
+            $10^7$ &\num{47} &\num{45} \\
+            $10^8$ &\num{54} &\num{51} \\
+            $10^9$ &\num{60} &\num{57} \\
+        \end{tabular}
+
+    \item
+        % In einem $k$-nären Heap mit $n$ Elementen benötigt die
+        % \textsc{Heapify}-Operation
+        % \begin{equation}
+        %     T(n) = \Big\lceil \underbrace{k}_{(1)} \cdot \underbrace{\log_k (n)}_{(2)} \Big\rceil
+        %     \text{ Schritte.}
+        % \end{equation}
+        % Wobei $T_n$ sich wie folgt zusammensetzt:
+        % \begin{enumerate}[(1)]
+        %     \item Die Anzahl der Kinder.
+        %     \item Die Anzahl der Elemente.
+        % \end{enumerate}
+        % Verwaltet jeder Knoten seine Kinder in einem binären Heap, so muss (1)
+        % durch die Anzahl der Schritte zum Finden (und ggf. Vertauschen) des
+        % Maximums des binären Heaps ersetzt werden.
+
+    \item 
+        \begin{enumerate}[(i)]
+            \item
+                Nach dem Ersetzen von 9 durch 1 werden zwei Vertauschungen
+                ($(1,8), (1,7)$) durchgeführt. 
+
+                Als Bäume: \medskip \\
+                \begin{tikzpicture}[
+                        level 1/.style={sibling distance=4em},
+                        level 2/.style={sibling distance=2em},
+                    ]
+                    \begin{scope}
+                        \node {9} % root
+                            child { node {8}
+                                child { node {7} }
+                                child { node {3} }
+                            }
+                            child { node {6}
+                                child { node {5} }
+                                child { node {2} }
+                            };
+                    \end{scope}
+                    \begin{scope}[shift={(3,0)}]
+                        \node (a) {\underline{1}} % root
+                            child { node (b) {8}
+                                child { node {7} }
+                                child { node {3} }
+                            }
+                            child { node {6}
+                                child { node {5} }
+                                child { node {2} }
+                            };
+                        \draw[<->] (a) to [bend right] (b);
+                    \end{scope}
+                    \begin{scope}[shift={(6,0)}]
+                        \node {8} % root
+                            child { node (a) {\underline{1}}
+                                child { node (b) {7} }
+                                child { node {3} }
+                            }
+                            child { node {6}
+                                child { node {5} }
+                                child { node {2} }
+                            };
+                        \draw[<->] (a) to [bend right] (b);
+                    \end{scope}
+                    \begin{scope}[shift={(9,0)}]
+                        \node {8} % root
+                            child { node {7}
+                                child { node {\underline{1}} }
+                                child { node {3} }
+                            }
+                            child { node {6}
+                                child { node {5} }
+                                child { node {2} }
+                            };
+                    \end{scope}
+                \end{tikzpicture}
+
+                In Level-Order: \medskip \\
+                \begin{tabular}{|l|c|c|c|c|c|c|c|}
+                    \hline
+                   $t = 0$ & 9 & 8 & 6 & 7 & 3 & 5 & 2 \\ \hline
+                   $t = 1$ & 1 & 8 & 6 & 7 & 3 & 5 & 2 \\ \hline
+                   $t = 2$ & 8 & 1 & 6 & 7 & 3 & 5 & 2 \\ \hline
+                   $t = 3$ & 8 & 7 & 6 & 1 & 3 & 5 & 2 \\ \hline
+                \end{tabular}
+
+            \item
+                Nach dem Ersetzen von 9 durch 1 wird eine Vertauschung
+                ($(1,8)$) durchgeführt. 
+
+                Als Bäume: \medskip \\
+                \begin{tikzpicture}[
+                        level 1/.style={sibling distance=2em},
+                        level 2/.style={sibling distance=2em},
+                    ]
+                    \begin{scope}
+                        \node {9} % root
+                            child { node {7}
+                                child { node {3} }
+                                child { node {6} }
+                                child { node {2} }
+                            }
+                            child { node {5} }
+                            child { node {8} };
+                    \end{scope}
+                    \begin{scope}[shift={(3,0)}]
+                        \node (a) {\underline{1}} % root
+                            child { node {7}
+                                child { node {3} }
+                                child { node {6} }
+                                child { node {2} }
+                            }
+                            child { node {5} }
+                            child { node (b) {8} };
+                        \draw[<->] (a) to [bend left] (b);
+                    \end{scope}
+                    \begin{scope}[shift={(6,0)}]
+                        \node {8} % root
+                            child { node {7}
+                                child { node {3} }
+                                child { node {6} }
+                                child { node {2} }
+                            }
+                            child { node {5} }
+                            child { node {\underline{1}} };
+                    \end{scope}
+                    \begin{scope}[shift={(9,0)}]
+                    \end{scope}
+                \end{tikzpicture}
+
+                In Level-Order: \medskip \\
+                \begin{tabular}{|l|c|c|c|c|c|c|c|}
+                    \hline
+                    $t = 0$ & 9 & 7 & 5 & 8 & 3 & 6 & 2 \\ \hline
+                    $t = 1$ & 1 & 7 & 5 & 8 & 3 & 6 & 2 \\ \hline
+                    $t = 2$ & 8 & 7 & 5 & 1 & 3 & 6 & 2 \\ \hline
+                \end{tabular}
+        \end{enumerate}
+
+    \item
+
+\end{enumerate}
+
+
+\end{document}
