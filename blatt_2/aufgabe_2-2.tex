@@ -1,0 +1,53 @@
+\documentclass[a4paper]{scrartcl}
+
+\input{preamble}
+
+\title{Algorithmen und Datenstrukturen}
+\subtitle{Übungsblatt 2 - Aufgabe 2}
+\author{
+    anonymous
+}
+\date{zum 4. November 2014}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[(a)]
+    \item Sei $k \in \{ 1,2,3 \}$ und $T_k(n)$ die Laufzeit für
+        $\textsc{Order}k(v)$.
+        Da nicht gesagt wird, dass es sich um einen vollständigen, binären Baum
+        handelt, kann das Master-Theorem nicht angewandt werden.
+        
+        Der Baum wird rekursiv durchlaufen, dabei wird jeder Knoten einmal
+        besucht. Da der Baum $n$ Knoten besitzt, wird \textsc{Print} $n$-mal
+        aufgerufen.
+
+        \begin{equation}
+            \Rightarrow T_k(n) \in \mathcal{O} \left( n \right)
+        \end{equation}
+        
+
+    \item Die best-case Laufzeit liegt in $\Omega \left( n \right)$ und damit
+        auch in $\Theta \left( n \right)$.
+        Es müssen in jedem Fall alle Kanten zu allen Knoten durchgelaufen
+        werden. Dies sind $n-1$ Stück.
+
+    \item Die Ausgaben sind \\
+        \textsc{Order1}: \texttt{SRITEHGIEMOLWKAL}, \\
+        \textsc{Order2}: \texttt{ETIHRIGESLOWMAKL}, \\
+        \textsc{Order3}: \texttt{ETHIIEGRLWOALKMS}.
+
+    \item
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+            S & V & T & N & R & I & Y & U & I & E \\
+            \hline
+        \end{tabular}
+
+    \item Die Ausgabe ist \\
+        \texttt{WELIKEALGORITHMS}.
+
+\end{enumerate}
+
+
+\end{document}
