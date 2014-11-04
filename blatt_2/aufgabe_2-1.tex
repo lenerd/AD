@@ -1,0 +1,38 @@
+\documentclass[a4paper]{scrartcl}
+
+\input{preamble}
+
+\title{Algorithmen und Datenstrukturen}
+\subtitle{Übungsblatt 2 - Aufgabe 1}
+\author{
+    anonymous
+}
+\date{zum 4. November 2014}
+
+\begin{document}
+\maketitle
+
+Es werden $k$-näre Bäume betrachtet.
+\begin{enumerate}[(a)]
+    \item
+        Ein Baum mit insgesamt $n$ Knoten besitzt $n-1$ Kanten.
+        
+    \item
+        In Level $l \geq 0$ liegen maximal $k^l$ Knoten.
+        
+    \item
+        Wir gehen davon aus, dass der Begriff \emph{full} aus den Folien der
+        Vorlesungen mit \emph{voll} übersetzt wurde.
+
+        Ein voller Baum der Tiefe $l$ hat $\frac{k^{l+1}-1}{k-1}$ Knoten.
+        
+    \item
+        Wir gehen davon aus, dass der Begriff \emph{complete} aus den Folien der
+        Vorlesungen mit \emph{vollständig} übersetzt wurde.
+
+        Ein vollständiger Baum der Tiefe $l$ hat $n \in \left[ \frac{k^l-1}{k-1}+1 , \frac{k^{l+1}-1}{k-1} \right]$ Knoten.
+        
+\end{enumerate}
+
+
+\end{document}
