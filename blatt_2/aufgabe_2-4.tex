@@ -76,7 +76,7 @@
 
     \item 
         \begin{enumerate}[(i)]
-            \item
+            \item Binärer Heap \\
                 Nach dem Ersetzen von 9 durch 1 werden zwei Vertauschungen
                 ($(1,8), (1,7)$) durchgeführt. 
 
@@ -136,13 +136,13 @@
                 In Level-Order: \medskip \\
                 \begin{tabular}{|l|c|c|c|c|c|c|c|}
                     \hline
-                   $t = 0$ & 9 & 8 & 6 & 7 & 3 & 5 & 2 \\ \hline
-                   $t = 1$ & 1 & 8 & 6 & 7 & 3 & 5 & 2 \\ \hline
-                   $t = 2$ & 8 & 1 & 6 & 7 & 3 & 5 & 2 \\ \hline
-                   $t = 3$ & 8 & 7 & 6 & 1 & 3 & 5 & 2 \\ \hline
+                    $t = 0$ & 9 & 8 & 6 & 7 & 3 & 5 & 2 \\ \hline
+                    $t = 1$ & 1 & 8 & 6 & 7 & 3 & 5 & 2 \\ \hline
+                    $t = 2$ & 8 & 1 & 6 & 7 & 3 & 5 & 2 \\ \hline
+                    $t = 3$ & 8 & 7 & 6 & 1 & 3 & 5 & 2 \\ \hline
                 \end{tabular}
 
-            \item
+            \item Ternärer Heap \\
                 Nach dem Ersetzen von 9 durch 1 wird eine Vertauschung
                 ($(1,8)$) durchgeführt. 
 
@@ -196,6 +196,129 @@
         \end{enumerate}
 
     \item
+        Sei Folgendes ein Array für den binären/trinären Heap in Level-Order:
+        \medskip \\
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            8 & 7 & 6 & 1 & 2 & 4 & 5 \\ \hline
+        \end{tabular}
+
+        Es wird jeweils die Operation \textsc{Decrease$(8,3)$} ausgeführt.
+
+        \begin{enumerate}[(i)]
+            \item
+                Als Bäume: \medskip \\
+                \begin{tikzpicture}[
+                        level 1/.style={sibling distance=4em},
+                        level 2/.style={sibling distance=2em},
+                    ]
+                    \begin{scope}
+                        \node {8} % root
+                            child { node {7}
+                                child { node {1} }
+                                child { node {2} }
+                            }
+                            child { node {6}
+                                child { node {4} }
+                                child { node {5} }
+                            };
+                    \end{scope}
+                    \begin{scope}[shift={(3,0)}]
+                        \node (a) {\underline{3}} % root
+                            child { node (b) {7}
+                                child { node {1} }
+                                child { node {2} }
+                            }
+                            child { node {6}
+                                child { node {4} }
+                                child { node {5} }
+                            };
+                        \draw[<->] (a) to [bend right] (b);
+                    \end{scope}
+                    \begin{scope}[shift={(6,0)}]
+                        \node {7} % root
+                        child { node {\underline{3}}
+                                child { node {1} }
+                                child { node {2} }
+                            }
+                            child { node {6}
+                                child { node {4} }
+                                child { node {5} }
+                            };
+                    \end{scope}
+                \end{tikzpicture}
+
+                In Level-Order: \medskip \\
+                \begin{tabular}{|l|c|c|c|c|c|c|c|}
+                    \hline
+                    $t = 0$ & 8 & 7 & 6 & 1 & 2 & 4 & 5 \\ \hline
+                    $t = 1$ & 3 & 7 & 6 & 1 & 2 & 4 & 5 \\ \hline
+                    $t = 2$ & 7 & 3 & 6 & 1 & 2 & 4 & 5 \\ \hline
+                \end{tabular}
+
+            \item
+                Als Bäume: \medskip \\
+                \begin{tikzpicture}[
+                        level 1/.style={sibling distance=2em},
+                        level 2/.style={sibling distance=2em},
+                    ]
+                    \begin{scope}
+                        \node {8} % root
+                            child { node {7}
+                                child { node {2} }
+                                child { node {4} }
+                                child { node {5} }
+                            }
+                            child { node {6} }
+                            child { node {1} };
+                    \end{scope}
+                    \begin{scope}[shift={(3,0)}]
+                        \node (a) {\underline{3}} % root
+                            child { node (b) {7}
+                                child { node {2} }
+                                child { node {4} }
+                                child { node {5} }
+                            }
+                            child { node {6} }
+                            child { node {1} };
+                        \draw[<->] (a) to [bend right] (b);
+                    \end{scope}
+                    \begin{scope}[shift={(6,0)}]
+                        \node {7} % root
+                            child { node (a) {\underline{3}}
+                                child { node {2} }
+                                child { node {4} }
+                                child { node (b) {5} }
+                            }
+                            child { node {6} }
+                            child { node {1} };
+                        \draw[<->] (a) to [bend left] (b);
+                    \end{scope}
+                    \begin{scope}[shift={(9,0)}]
+                        \node {7} % root
+                            child { node {5}
+                                child { node {2} }
+                                child { node {4} }
+                                child { node {\underline{3}} }
+                            }
+                            child { node {6} }
+                            child { node {1} };
+                    \end{scope}
+                \end{tikzpicture}
+
+                In Level-Order: \medskip \\
+                \begin{tabular}{|l|c|c|c|c|c|c|c|}
+                    \hline
+                    $t = 0$ & 8 & 7 & 6 & 1 & 2 & 4 & 5 \\ \hline
+                    $t = 1$ & 3 & 7 & 6 & 1 & 2 & 4 & 5 \\ \hline
+                    $t = 2$ & 7 & 3 & 6 & 1 & 2 & 4 & 5 \\ \hline
+                    $t = 3$ & 7 & 5 & 6 & 1 & 2 & 4 & 3 \\ \hline
+                \end{tabular}
+
+        \end{enumerate}
+        Da beim ternären Heap mehr (zwei) Vertauschungen durchgeführt werden als
+        beim binären Heap (eine Vertauschung), kann die Aussage nicht stimmen.
+        Sie wurde durch ein Gegenbeispiel widerlegt.
 
 \end{enumerate}
 
