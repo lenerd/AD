@@ -1,0 +1,64 @@
+\documentclass[a4paper]{scrartcl}
+
+\input{preamble}
+
+\title{Algorithmen und Datenstrukturen}
+\subtitle{Übungsblatt 3 - Aufgabe 1}
+\author{
+    anonymous
+}
+\date{zum 18. November 2014}
+
+\begin{document}
+\maketitle
+
+Die Frage, ob sich in der einfach verketteten Liste eine Schleife befindet,
+lässt sich mit dem Hase-Igel-Algorithmus lösen.
+
+\begin{algorithm}
+    \caption{\textsc{Hase-Igel}}
+    \begin{algorithmic}[1]
+        \Procedure{Hase-Igel}{L}
+        \State $Hase \gets L.start.next$
+        \State $Igel \gets L.start$
+        \While {$Hase \neq NULL \land Hase \neq Igel$}
+            \State $Hase \gets Hase.next$
+            \State $Igel \gets Igel.next$
+            \If {$Hase$}
+                \State $Hase \gets Hase.next$
+            \EndIf
+        \EndWhile
+        \If {$Hase$}
+            \State \Return $\top$
+        \Else
+            \State \Return $\bot$
+        \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+Der Hase-Igel-Algorithmus verwendet zwei zusätzliche Pointer auf Elemente der
+Liste.
+Damit liegt der Speicherverbrauch in $\mathcal{O}(1)$.
+
+\begin{enumerate}
+    \item Die Liste enthält keine Schleife. \\
+        Da der Hase sich in jeder Iteration zwei Elemente weiter bewegt, trifft
+        er nach $\frac{n}{2}$ Schritten auf den Nullpointer am Ende der Liste.
+        Die Schleife wird abgebrochen und es wird $\bot$ zurückgegeben.
+        Die Laufzeit liegt in diesem Fall in $\mathcal{O}(n)$.
+
+    \item Die Liste enthält eine Schleife. \\
+        Dann gibt es ein $k$-tes Element ($k \leq n$), auf das der Pointer des letzten
+        Listenelements zeigt.
+        Nach $k$ Iterationen befindet sich der Igel am Beginn der Schleife und
+        bräuchte noch $n-k$ Schritte zum Ende der Schleife.
+        In dieser Zeit bewegt sich der Hase durch die Schleife.
+        Beide treffen sich frühstens nach $k$, spätestens nach $n$ Schritten.
+        Die Schleife wird abgebrochen und es wird $\top$ zurückgegeben.
+        Die Laufzeit liegt in diesem Fall ebenfalls in $\mathcal{O}(n)$.
+
+\end{enumerate}
+
+
+\end{document}
