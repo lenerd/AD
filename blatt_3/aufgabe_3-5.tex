@@ -1,0 +1,38 @@
+\documentclass[a4paper]{scrartcl}
+
+\input{preamble}
+
+\title{Algorithmen und Datenstrukturen}
+\subtitle{Übungsblatt 3 - Aufgabe 5}
+\author{
+    anonymous
+}
+\date{zum 18. November 2014}
+
+\begin{document}
+\maketitle
+
+
+\begin{algorithm}
+    \caption{\textsc{Min-Max}}
+    \begin{algorithmic}[1]
+        \Procedure{Min-Max}{A}
+
+        \State $minsofar \gets \infty$
+        \State $maxsofar \gets -\infty$
+
+        \For {$i = 1$ \textbf{to} $n$}
+            \If {$A[i] > maxsofar$}
+                \State $maxsofar \gets A[i]$
+            \ElsIf {$A[i] < minsofar$}
+                \State $minsofar \gets A[i]$
+            \EndIf
+        \EndFor
+
+        \State \Return $(minsofar, maxsofar)$
+
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\end{document}
