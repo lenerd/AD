@@ -111,18 +111,18 @@
             \label{alg:bubble2}
             \begin{algorithmic}[1]
                 \Procedure{Bubblesort'}{L}
-                \For {$i = 1$ \textbf{to} $L.length$}
-                    \State $swapped \gets false$
-                    \For {$j = L.length$ \textbf{down to} $i + 1$}
-                        \If {$L[j] < L[j - 1]$}
-                            \State \Call{Swap}{$L[j], L[j - 1]$}
-                            \State $swapped \gets true$
+                    \For {$i = 1$ \textbf{to} $L.length$}
+                        \State $swapped \gets false$
+                        \For {$j = L.length$ \textbf{down to} $i + 1$}
+                            \If {$L[j] < L[j - 1]$}
+                                \State \Call{Swap}{$L[j], L[j - 1]$}
+                                \State $swapped \gets true$
+                            \EndIf
+                        \EndFor
+                        \If {$\lnot swapped$}
+                            \State \Return
                         \EndIf
                     \EndFor
-                    \If {$\lnot swapped$}
-                        \State \Return
-                    \EndIf
-                \EndFor
                 \EndProcedure
             \end{algorithmic}
         \end{algorithm}
