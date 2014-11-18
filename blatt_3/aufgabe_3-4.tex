@@ -1,0 +1,241 @@
+\documentclass[a4paper]{scrartcl}
+
+\input{preamble}
+
+\title{Algorithmen und Datenstrukturen}
+\subtitle{Übungsblatt 3 - Aufgabe 4}
+\author{
+    anonymous
+}
+\date{zum 18. November 2014}
+
+\begin{document}
+\maketitle
+
+
+\begin{enumerate}[(a)]
+    \item \hfill \\
+        \begin{figure}[h]
+            \centering
+            \begin{tikzpicture}[
+                    level 1/.style={sibling distance=16em},
+                    level 2/.style={sibling distance=8em},
+                    level 3/.style={sibling distance=4em},
+                ]
+                \node {$c < b$}
+                    child
+                    {
+                        node {$b < a$}
+                        child
+                        {
+                            node {$c < b$}
+                            child
+                            {
+                                node {$[a,b,c]$}
+                                edge from parent node [left] {$\bot$}
+                            }
+                            % child
+                            % {
+                            %     node {$[x,x,x]$}
+                            %     edge from parent node [right] {$\top$}
+                            % }
+                            edge from parent node [left] {$\bot$}
+                        }
+                        child
+                        {
+                            node {$c < a$}
+                            child
+                            {
+                                node {$[b,a,c]$}
+                                edge from parent node [left] {$\bot$}
+                            }
+                            child
+                            {
+                                node {$[b,c,a]$}
+                                edge from parent node [right] {$\top$}
+                            }
+                            edge from parent node [right] {$\top$}
+                        }
+                        edge from parent node [left] {$\bot$}
+                    }
+                    child
+                    {
+                        node {$c < a$}
+                        child
+                        {
+                            node {$b < c$}
+                            child
+                            {
+                                node {$[a,c,b]$}
+                                edge from parent node [left] {$\bot$}
+                            }
+                            % child
+                            % {
+                            %     node {$[x,x,x]$}
+                            %     edge from parent node [right] {$\top$}
+                            % }
+                            edge from parent node [left] {$\bot$}
+                        }
+                        child
+                        {
+                            node {$b < a$}
+                            child
+                            {
+                                node {$[c,a,b]$}
+                                edge from parent node [left] {$\bot$}
+                            }
+                            child
+                            {
+                                node {$[c,b,a]$}
+                                edge from parent node [right] {$\top$}
+                            }
+                            edge from parent node [right] {$\top$}
+                        }
+                        edge from parent node [right] {$\top$}
+                    };
+            \end{tikzpicture}
+            \caption{Berechnungsbaum des ursprünglichen Bubblesort}
+        \end{figure}
+
+    \item
+        Wenn die innere Schleife über $j = L.length \textbf{ down to } i + 1$
+        keine Elemente vertauscht, dann wird in der nächsten Iteration von der
+        äußeren Schleife auch nichts mehr vertauscht (innere Schleife über
+        $j = L.length \textbf{ down to } (i + 1) + 1$).
+        Man kann in dem Fall den Algorithmus abbrechen, da die Liste sortiert
+        ist.
+
+    \item Siehe Algorithmus \ref{alg:bubble2} auf Seite \pageref{alg:bubble2}.
+        \begin{algorithm}[h]
+            \caption{\textsc{Bubblesort'}}
+            \label{alg:bubble2}
+            \begin{algorithmic}[1]
+                \Procedure{Bubblesort'}{L}
+                \For {$i = 1$ \textbf{to} $L.length$}
+                    \State $swapped \gets false$
+                    \For {$j = L.length$ \textbf{down to} $i + 1$}
+                        \If {$L[j] < L[j - 1]$}
+                            \State \Call{Swap}{$L[j], L[j - 1]$}
+                            \State $swapped \gets true$
+                        \EndIf
+                    \EndFor
+                    \If {$\lnot swapped$}
+                        \State \Return
+                    \EndIf
+                \EndFor
+                \EndProcedure
+            \end{algorithmic}
+        \end{algorithm}
+        % # Python Implementierung
+        % def bubble2(L):
+        %     for i in range(1 - 1, len(L) - 1):
+        %         swapped = False
+        %         for j in range(len(L) - 1, (i + 1) - 1, -1):
+        %             if L[j] < L[j - 1]:
+        %                 t = L[j]
+        %                 L[j] = L[j - 1]
+        %                 L[j - 1] = t
+        %                 swapped = True
+        %         if not swapped:
+        %             return L
+        %     return L
+
+    \item
+        Der Worst Case besteht darin, dass die Liste zu Begin schon sortiert
+        ist, jedoch in der falschen Reihenfolge (absteigend statt aufsteigend
+        und anders herum).
+        Der Mehraufwand besteht darin, dass bei jeder Vertauschung die
+        Variable $swapped$ auf true gesetzt wird, sowie in der Überprüfung
+        in Zeile 10.
+        Somit werden mehr Anweisungen als im ursprünglichen Algorithmus
+        ausgeführt.
+        Die Laufzeit einer Implementation kann sich daher verlängern.
+        In der $\mathcal{O}$-Notation ändert sich nichts an der Zeitkomplexität.
+
+        Die Adaption lohnt sich dennoch, da der Worst Case sehr unwahrscheinlich
+        ist und eine teilsortierte Liste wesentlich häufiger auftritt.
+        Im Schnitt verbraucht der verbesserte Bubblesort weniger Zeit.
+
+    \item
+        Der Unterschied besteht darin, dass nach den zwei Vergleichen mit
+        negativem Ergebnis (im Pfad ganz links) abgebrochen wird und das
+        Ergebnis ein Schritt früher zur Verfügung steht.
+        Es handelt sich um den Fall, dass die Liste $[a,b,c]$ bereits zu Beginn
+        in der richtigen Reihenfolge ist.
+
+        \begin{figure}[h]
+            \centering
+            \begin{tikzpicture}[
+                    level 1/.style={sibling distance=16em},
+                    level 2/.style={sibling distance=8em},
+                    level 3/.style={sibling distance=4em},
+                ]
+                \node {$c < b$}
+                    child
+                    {
+                        node {$b < a$}
+                        child
+                        {
+                            node {$[a,b,c]$}
+                            edge from parent node [left] {$\bot$}
+                        }
+                        child
+                        {
+                            node {$c < a$}
+                            child
+                            {
+                                node {$[b,a,c]$}
+                                edge from parent node [left] {$\bot$}
+                            }
+                            child
+                            {
+                                node {$[b,c,a]$}
+                                edge from parent node [right] {$\top$}
+                            }
+                            edge from parent node [right] {$\top$}
+                        }
+                        edge from parent node [left] {$\bot$}
+                    }
+                    child
+                    {
+                        node {$c < a$}
+                        child
+                        {
+                            node {$b < c$}
+                            child
+                            {
+                                node {$[a,c,b]$}
+                                edge from parent node [left] {$\bot$}
+                            }
+                            % child
+                            % {
+                            %     node {$[x,x,x]$}
+                            %     edge from parent node [right] {$\top$}
+                            % }
+                            edge from parent node [left] {$\bot$}
+                        }
+                        child
+                        {
+                            node {$b < a$}
+                            child
+                            {
+                                node {$[c,a,b]$}
+                                edge from parent node [left] {$\bot$}
+                            }
+                            child
+                            {
+                                node {$[c,b,a]$}
+                                edge from parent node [right] {$\top$}
+                            }
+                            edge from parent node [right] {$\top$}
+                        }
+                        edge from parent node [right] {$\top$}
+                    };
+            \end{tikzpicture}
+            \caption{Berechnungsbaum des modifizierten Bubblesort}
+        \end{figure}
+
+\end{enumerate}
+
+
+\end{document}
