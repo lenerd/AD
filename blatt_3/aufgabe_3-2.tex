@@ -48,10 +48,30 @@ Da $count \geq k$ die Abbruchbedingung der Rekursion ist, wird diese nach
 endlich vielen Schritten beendet.
 
 \paragraph{Korrektheit} \hfill \\
-TODO
+Anfang: \\
+Wenn die Wurzel nicht $\geq x$ ist, dann ist es auch kein anderes Element des
+Heap.
+In diesem Fall wird direkt false zurückgegeben.
+Andernfalls wird die Rekursion von \textsc{Check-Node} mit $count = 1$
+gestartet.
+
+Schritt: $index = i$, $count = n$ \\
+Bisher wurden schon $n$ Einträge (inklusive des aktuellen Knotens) gefunden.
+Gilt $n \geq k$, so wurden mindestens $k$ Elemente $\geq x$ gefunden.
+Das $k$-größte Element ist also $\geq x$ und wir können die Rekursion abbrechen.
+Im anderen Fall, wird \textsc{Check-Node} auf das linke Kind (Index $2i$)
+angewandt.
+Sind nun $n \geq k$, wird wie oben abgebrochen.
+Sonst wird \textsc{Check-Node} auf das rechte Kind (Index $2i+1$) angewandt und
+die Rückgabe zurückgegeben.
+
+Sobald $k$ Elemente $\geq x$ gefunden wurden, wird also true zurückgegeben.
+Werden alle Elemente $\geq x$ gefunden und deren Anzahl ist $< k$, so wird false
+zurückgegeben.
 
 \paragraph{Zeitkomplexität} \hfill \\
-TODO
+Da die Funktion \textsc{Check-Node} maximal $k$-mal aufgerufen wird (von $count$
+beschränkt), liegt die Zeitkomplexität in $\mathcal{O}(k)$.
 
 \paragraph{Platzkomplexität} \hfill \\
 Da alle Informationen über den rekursiven Aufruf weitergegeben werden, liegen
