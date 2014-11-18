@@ -37,4 +37,27 @@
     \end{algorithmic}
 \end{algorithm}
 
+Der Algorithmus schaut sich so lange rekursiv die Kinder ausgehend von der
+Wurzel an, bis alle Elemente mit einem Wert $\geq x$ gefunden hat oder die
+Anzahl dieser $\geq k$ wird.
+Im ersten Fall, wird false zurückgegeben, in letzterem true.
+
+\paragraph{Termination} \hfill \\
+$count$ wird bei jedem rekursiven Aufruf inkrementiert.
+Da $count \geq k$ die Abbruchbedingung der Rekursion ist, wird diese nach
+endlich vielen Schritten beendet.
+
+\paragraph{Korrektheit} \hfill \\
+TODO
+
+\paragraph{Zeitkomplexität} \hfill \\
+TODO
+
+\paragraph{Platzkomplexität} \hfill \\
+Da alle Informationen über den rekursiven Aufruf weitergegeben werden, liegen
+die Daten auf dem Stack.
+Da die maximale Rekursionstiefe $k$ beträgt, liegen zu jedem Zeitpunkt maximal
+$k$ Callframes auf dem Stack.
+Die Platzkomplexität liegt damit in $\mathcal{O}(k)$.
+
 \end{document}
