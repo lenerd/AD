@@ -17,25 +17,22 @@
     \caption{\textsc{k-highest Comparison}}
     \begin{algorithmic}[1]
         \Procedure{Check-Node}{heap, index, x, k, count}
-        \If {$heap[index] \geq k$}
-            \State $current \gets current + 1$
-            \If {$count \geq k$}
-                \State \Return $count$
-            \EndIf
-            \State $count \gets \Call{Check-Node}{heap, 2 \cdot index, k, x, count}$
-            \If {$count \geq k$}
-                \State \Return $count$
-            \EndIf
-            \State \Return \Call{Check-Node}{$heap, 2 \cdot index + 1, k, x, count$}
-        \EndIf
-        \State \Return $count$
+            \For{$i$ \textbf{in} $0, 1$}
+                \If {$count \geq k$}
+                    \State \Return $count$
+                \EndIf
+                \If {$heap[2 \cdot index + i] \geq x$}
+                    \State $count \gets \Call{Check-Node}{heap, 2 \cdot index + i, k, x, count + 1}$
+                \EndIf
+            \EndFor
+            \State \Return $count$
         \EndProcedure
+        \Statex
         \Procedure{k-highest Comparison}{H, k, x}
-        \If {$\Call{Check-Node}{H, 1, k, x, 0} \geq k$}
-            \State \Return true
-        \Else
+            \If {$H[1] \geq x$}
+                \State \Return $\Call{Check-Node}{H, 1, k, x, 1} \geq k$
+            \EndIf
             \State \Return false
-        \EndIf
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
