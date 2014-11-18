@@ -13,9 +13,16 @@
 \maketitle
 
 Eine einfache Möglichkeit, einen vergleichsbasierten Algorithmus zu
-modifizieren, ist die Folgende:
+modifizieren, ist die Folgende: \\
 Für jedes Element wird zu Beginn des Verfahrens die ursprüngliche Position
 gespeichert und bei Wertegleichheit als zweiter Schlüssel verwendet.
+
+Man kann zum Beispiel die vorhandene Datenstruktur erweitern und die alte
+Position als eine neue Eigenschaft hinzufügen.
+Für ein reines Integerarray biete sich an, ein zweites Array mit den alten
+Positionen von $1$ bis $n$ zu füllen.
+Jedes mal, wenn zwei Elemente den Platz tauschen, wird diese swap-Operation
+auch auf das neue Array mit den gleichen Indizes angewandt.
 
 Die modifizierte Version kommt mit maximal der doppelten Anzahl an Vergleichen
 aus, da bei jedem Vergleich im ursprünglichen Algorithmus maximal ein
