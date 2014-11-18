@@ -59,11 +59,12 @@ Schritt: $index = i$, $count = n$ \\
 Bisher wurden schon $n$ Einträge (inklusive des aktuellen Knotens) gefunden.
 Gilt $n \geq k$, so wurden mindestens $k$ Elemente $\geq x$ gefunden.
 Das $k$-größte Element ist also $\geq x$ und wir können die Rekursion abbrechen.
-Im anderen Fall, wird \textsc{Check-Node} auf das linke Kind (Index $2i$)
-angewandt.
+Im anderen Fall, wird geschaut, ob das linke Kind (Index $2i$) einen Wert
+$\geq x$ hat und falls dieses so ist wird \textsc{Check-Node} auf diese
+ausgeführt, wobei $count$ inkrementiert wird.
 Sind nun $n \geq k$, wird wie oben abgebrochen.
-Sonst wird \textsc{Check-Node} auf das rechte Kind (Index $2i+1$) angewandt und
-die Rückgabe zurückgegeben.
+Sonst wird ebenso mit dem rechten Kind (Index $2i+1$) verfahren.
+In jedem Fall wird der neue Wert von $count$ zurückgegeben.
 
 Sobald $k$ Elemente $\geq x$ gefunden wurden, wird also true zurückgegeben.
 Werden alle Elemente $\geq x$ gefunden und deren Anzahl ist $< k$, so wird false
