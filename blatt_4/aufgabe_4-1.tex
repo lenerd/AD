@@ -13,7 +13,7 @@
 \maketitle
 
 \begin{enumerate}[(a)]
-    \item $l=2$
+    \item $l=2$ Gläser
         \paragraph{Strategie}
         Sei $n = m^2$ für $n, m \in \mathbb{N}$ die Anzahl der Sprossen.
         Wir teilen die Sprossen in $m$ Intervalle zu je $m$ Sprossen.
@@ -32,8 +32,12 @@
         gesuchten Höhe entspricht.
 
         Jedes der zwei Gläser wird höchstens $m$-mal fallen gelassen.
-        Die Anzahl liegt also in $\mathcal{O}(2\sqrt{n})$ und damit auch in
+        Die Anzahl liegt also in $\mathcal{O}(\sqrt{n})$ und damit auch in
         $o(n)$.
+
+        Ist $n$ kein Quadrat einer natürlichen Zahl, so muss natürlich mit
+        gerundeten Werten gearbeitet werden.
+        An der Zeitkomplexität ändert sich jedoch nichts wesentliches.
 
         % \begin{algorithm}
         %     \caption{\textsc{A}}
@@ -83,7 +87,29 @@
         %     \end{algorithmic}
         % \end{algorithm}
 
-    \item
+    \item $l \in \mathbb{N}, l \geq 2$ Gläser
+        \paragraph{Strategie}
+        Ähnlich wie zuvor teilen wir die Leiter in Intervalle auf.
+        Allerdings nicht in $\sqrt{n}$ Stück, sondern allgemein in
+        $n^\frac{1}{l}$.
+        Sobald wir mit dem ersten Glas, das Intervall gefunden haben, in dem
+        die gesuchte Sprosse liegt, teilen wir dies wieder in $n^\frac{1}{l}$
+        (Sub-)Intervalle auf.
+        Das ganze machen wir $l$-mal; dann ist jedes Intervall maximal eine
+        Sprosse breit und wir probieren mit dem letzten Glas, den genaue Sprosse
+        aus.
+
+        Im Worst-Case lassen wir mit $l$ Gläsern jedes $n^\frac{1}{l}$-mal
+        fallen; die Anzahl liegt also in
+        $\mathcal{O}(n^\frac{1}{l})$
+        \begin{equation}
+            \mathcal{O} \left( n^\frac{1}{l} \right)
+        \end{equation}
+        und damit auch in
+        \begin{equation}
+            o \left( A(l-1, n) \right) \text{ bzw. } o \left( n^\frac{1}{l-1} \right) \text{ .}
+        \end{equation}
+        
 
 \end{enumerate}
 
