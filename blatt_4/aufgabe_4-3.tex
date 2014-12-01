@@ -14,6 +14,62 @@
 
 \begin{enumerate}
     \item
+        Sei $A \in \{0,1\}^{n \times n}$ die Adjazenzmatrix eines beliebigen
+        schleifenfreien und ungewichteten Graphen $G = (V, E)$ und bezeichne
+        $A[i,j]$ den Eintrag in der $i$-ten Zeile und $j$-ten Spalte.
+        \begin{behaupt}
+            Für alle $k \in \mathbb{N}$ ist $A^k[i,j]$ die Anzahl verschiedener
+            Pfade der Länge $k$, die in $G$ von $i$ nach $j$ führen.
+        \end{behaupt}
+        \begin{proof}[Beweis durch vollständige Induktion] \hfill \\
+            \textbf{Induktionsanfang} \\
+            Sei $k = 0$.
+            $A^0$ entspricht der Einheitsmatrix.
+            \begin{equation}
+                A^0 =
+                \begin{pmatrix}
+                    1 & 0 & \cdots & 0 \\
+                    0 & 1 & \ddots & \vdots \\
+                    \vdots & \ddots & \ddots & 0 \\
+                    0 & \cdots & 0 & 1 \\
+                \end{pmatrix}
+            \end{equation}
+            Besteht ein Pfad der Länge $0$ zwischen Knoten $i, j$, so gilt
+            $i = j$.
+            Pfade der Länge $0$ zwischen verschiedenen Knoten ohne
+            Kantenübergänge sind nicht möglich.
+            Es gibt nur die eine Möglichkeit, an einem Knoten zu bleiben, ohne
+            über eine Kante zu gehen.
+            Daher gilt die Behauptung für $k = 0$.
+            
+            Gelte die Behauptung für ein festes $k \in \mathbb{N}$.
+
+            \textbf{Induktionsschritt} \\
+            Seien $a,b,c \in V$.
+            Gibt es einen Pfad der Länge $k$ von $i$ nach $l$ und einen Pfad der
+            Länge $1$ von $l$ nach $j$, so existiert ein Pfad der Länge $k+1$
+            zwischen $i$ und $j$.
+            Die Anzahl der Pfade der Länge $k$ zwischen $i$ und $l$ ist nach
+            Induktionsannahme $A^k[i,l]$.
+            Es gilt für die Anzahl $m$ aller Pfade von $i$ über $l$ nach $j$
+            \begin{equation}
+                m = A^k[i,l] \cdot A[l,j] \text{ .}
+                \label{eq:1}
+            \end{equation}
+            Um die Summe aller Pfade der Länge $k+1$ zwischen $i$ und $j$
+            ($A^{k+1}[i,j]$) zu erhalten, muss $m$ für alle Knoten $l \in V$
+            aufsummiert werden.
+            \begin{equation}
+                A^{k+1}[i,j] = \sum_{l=1}^n A^k[i,l] \cdot A[l,j]
+            \end{equation}
+            Dies entspricht der elementweisen Berechnung der
+            Matrizenmultiplikation.
+            \begin{equation}
+                A^{k+1} = A^k \cdot A
+            \end{equation}
+            
+            Damit ist die Behauptung durch vollständige Induktion gezeigt.
+        \end{proof}
 
     \item
 
