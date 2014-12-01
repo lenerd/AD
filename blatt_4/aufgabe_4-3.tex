@@ -72,8 +72,37 @@
         \end{proof}
 
     \item
+        Folgender Algorithmus berechnet eine Matrix $K$, mit welcher sich
+        \emph{anschließend} in $\Theta(1)$ prüfen lässt, ob zwei Knoten
+        $i,j \in V$ durch einen Pfad der Länge $k$ verbunden werden können.
+        Ist dies der Fall, so gilt $K[i,j] \neq 0$, sonst ist $K[i,j] = 0$.
+        \begin{algorithm}
+            \caption{\textsc{k-Connection}}
+            \begin{algorithmic}[1]
+                \Procedure{k-Connection}{A, k}
+                    \State \Return $A^k$
+                \EndProcedure
+            \end{algorithmic}
+        \end{algorithm}
 
     \item
+        Folgender Algorithmus berechnet eine Matrix $K$, mit welcher sich
+        \emph{anschließend} in $\Theta(1)$ prüfen lässt, ob zwei Knoten
+        $i,j \in V$ durch einen Pfad der Länge höchtens $k$ verbunden werden
+        können.
+        Ist dies der Fall, so gilt $K[i,j] \neq 0$, sonst ist $K[i,j] = 0$.
+        \begin{algorithm}
+            \caption{\textsc{Max-k-Connection}}
+            \begin{algorithmic}[1]
+                \Procedure{Max-k-Connection}{A, k}
+                    \State $K \gets$ leere Matrix
+                    \For {$i = 0$ \textbf{to} $k$}
+                        \State $K \gets K + A^k$
+                    \EndFor
+                    \State \Return $K$
+                \EndProcedure
+            \end{algorithmic}
+        \end{algorithm}
 
 \end{enumerate}
 
