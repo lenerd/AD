@@ -13,4 +13,28 @@
 \maketitle
 
 
+\begin{behaupt}
+    Es sind maximal $n-1$ Überweisungen notwendig, um die gegenseitigen
+    Schulden von $n$ Personen auszugleichen.
+\end{behaupt}
+\begin{proof}
+    Seien $s_i$ die Schulden (negativ) bzw. das Guthaben (positiv) der Person
+    $i$.
+    Da nur die Verhältnisse innerhalb dieser Menge an Personen betrachtet
+    werden, muss gelten
+    \begin{equation}
+        \sum_{i=1}^n s_i = 0
+    \end{equation}
+    Person $n$ stellt ein Konto mit dem Betrag $k$ zur Verfügung.
+    Der Saldo kann ohne Auswirkungen beliebig positiv oder negativ sein.
+    Jede Person $i=1, \ldots, n-1$ hebt nun seinen Betrag $s_i$ von dem Konto
+    ab (Für negative $s_i$, wird Geld auf das Konto überwiesen.).
+    Nach diesen $n-1$ Transaktionen entspricht der Saldo auf dem Konto $k+s_n$.
+    \begin{equation}
+        k + \sum_{i=1}^n s_i - \sum_{i=1}^{n-1} s_i = k + s_n
+    \end{equation}
+    Da dieses schon der $n$-ten Person gehört, ist eine weitere Überweisung
+    nicht notwendig.
+\end{proof}
+
 \end{document}
