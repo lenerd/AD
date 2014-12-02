@@ -86,11 +86,12 @@
         \end{algorithm}
 
     \item
-        Folgender Algorithmus berechnet eine Matrix $K$, mit welcher sich
-        \emph{anschließend} in $\Theta(1)$ prüfen lässt, ob zwei Knoten
-        $i,j \in V$ durch einen Pfad der Länge höchtens $k$ verbunden werden
-        können.
-        Ist dies der Fall, so gilt $K[i,j] \neq 0$, sonst ist $K[i,j] = 0$.
+        Folgender Algorithmus berechnet die Potenzen $A^\kappa$ von $\kappa=0$
+        bis maximal $\kappa=k$.
+        Sobald in einer Iteration $A^\kappa[i,j] \neq 0$ ist, existiert ein
+        Pfad der Länge höchstens $k$ von $i$ nach $j$; es wird True
+        zurückgegeben.
+        Existiert kein solcher Pfad, wird False zurückgegeben.
         \begin{algorithm}
             \caption{\textsc{Max-k-Connection}}
             \begin{algorithmic}[1]
