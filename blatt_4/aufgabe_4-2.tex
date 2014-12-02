@@ -14,21 +14,88 @@
 
 \begin{enumerate}[(a)]
     \item
+        Die Aussage ist richtig. \\
+        Sei $\pi$ ein Pfad durch $G$.
+        Angenommen ein kürzester Pfad zwischen zwei Knoten $u,v \in V$ enthält
+        einen Knoten $w \in V$ mehrfach.
+        Dann hat der Pfad die Form $\pi = uxwywzv$ für Knotenfolgen $x, y, z$.
+        Da $G$ keine Schleifen enthält, muss $y \neq \lambda$ gelten.
+        Offensichtlich ist der Pfad $\pi' = uxwzv$ kürzer als $\pi$.
+        Dies ist ein Widerspruch zu der Annahme, dass der kürzeste Pfad einen
+        Knoten mehrfach enthält.
 
     \item
+        Die Aussage ist richtig. \\
+        Da ein kürzester Pfad in $G$ immer ein einfacher Pfad ist (a), verläuft
+        der kürzeste Pfad im längsten Fall einmal durch alle $n$ Knoten.
+        Da auf einem Pfad mit $n$ Knoten $n-1$ Kanten liegen, gilt die Aussage.
 
     \item
+        TODO
 
     \item
+        Die Aussage ist falsch. \\
+        Ein Baum muss zusammenhängend sein.
+        Beispielsweise betrachten wir folgenden Graphen
+        \begin{equation}
+            G' = (V', E') = (\{a, b\}, \emptyset)
+        \end{equation}
+        $G'$ besteht aus zwei Knoten ohne Kanten.
+        Ohne Kanten können keine Zyklen vorhanden sein.
+        Da $a$ und $b$ nicht verbunden sind, handelt es sich nicht um einen
+        Baum, sondern um einen Wald mit zwei Bäumen.
 
     \item
+        Die Aussage ist falsch. \\
+        In Abbildung \ref{fig:3complete} besitzt jeder der drei Knoten den Grad
+        $2$.
+        Nach der Aussage müssten dann $6$ Kanten vorhanden sein.
+        Dies ist offensichtlich nicht der Fall.
+        Die Aussage müsste heißen: Die Hälfte der Summe aller Knotengrade in $G$
+        ist gleich $m$.
+        Jede Kante ist mit genau zwei Knoten verbunden, wird also in der Summe
+        aller Grade doppelt gezählt.
 
     \item
+        TODO
 
     \item
+        Die Aussage ist richtig. \\
+        $G$ hat am meisten Kanten, wenn $G$ ein vollständiger Graph ist.
+        In einem vollständigen Graphen sind alle Knoten paarweise miteinander
+        verbunden.
+        Von jedem der $n$ Knoten führt eine Kante zu jedem der anderen $n-1$
+        Knoten.
+        Nach der korrigierten Aussage in (e) muss die Anzahl der Kanten
+        \begin{equation}
+            m = \frac{n \cdot (n-1)}{2} \text{ sein.}
+        \end{equation}
+        
 
     \item
+        Die Aussage ist falsch. \\
+        Sei $G' = (V', E')$ ein vollständiger Graph mit $n \geq 3$.
+        Zu jedem Knotenpaar $u,v \in V'$ gibt es  einen dritten Knoten
+        $w \in V$, so dass der Pfad $uvw$ die Länge $2$ besitzt.
+        Ein Beispiel ist in Abbildung \ref{fig:3complete} zu sehen.
+
 
 \end{enumerate}
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[
+        semithick,
+        auto,
+    ]
+        \node [circle, draw] (a) [] {};
+        \node [circle, draw] (b) [below left= of a] {};
+        \node [circle, draw] (c) [below right= of a] {};
+        \draw (a) to (b);
+        \draw (a) to (c);
+        \draw (b) to (c);
+    \end{tikzpicture}
+    \caption{Vollständiger Graph mit $n = 3$}
+    \label{fig:3complete}
+\end{figure}
 
 \end{document}
