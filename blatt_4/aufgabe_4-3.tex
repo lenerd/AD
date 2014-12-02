@@ -94,12 +94,15 @@
         \begin{algorithm}
             \caption{\textsc{Max-k-Connection}}
             \begin{algorithmic}[1]
-                \Procedure{Max-k-Connection}{A, k}
-                    \State $K \gets$ leere Matrix
-                    \For {$i = 0$ \textbf{to} $k$}
-                        \State $K \gets K + A^k$
+                \Procedure{Max-k-Connection}{A, k, i, j}
+                    \State $K \gets A^0$
+                    \For {$\kappa = 1$ \textbf{to} $k$}
+                        \If {$K[i,j] \neq 0$}
+                            \State \Return True
+                        \EndIf
+                        \State $K \gets K \cdot A$
                     \EndFor
-                    \State \Return $K$
+                    \State \Return $K[i,j] \neq 0$
                 \EndProcedure
             \end{algorithmic}
         \end{algorithm}
