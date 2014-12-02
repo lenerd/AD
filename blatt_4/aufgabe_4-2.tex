@@ -83,10 +83,30 @@
         aller Grade doppelt gezählt.
 
     \item
-        TODO \\
+        Die Aussage ist richtig. \\
         Der längste kürzeste Pfad zwischen zwei Knoten in einem $k$-nären Baum
         tritt auf, wenn sich beide Knoten auf der untersten Ebene befinden und
         der einzige gemeinsame Vorfahre die Wurzel des Baumes ist.
+        Die Länge des Pfades ist also die doppelte Höhe des Baumes.
+
+        Die Höhe des Baumes
+        \begin{equation}
+            h = \lceil \log_k (n+1) - 1 \rceil
+        \end{equation}
+        Für die Aussage müsste gelten:
+        \begin{equation}
+            \begin{split}
+                diam(G) = 2h &\leq 2 \lceil \log_k n \rceil \\
+                \gdw 2 \cdot \lceil \log_k (n+1) - 1 \rceil &\leq 2 \cdot \lceil \log_k n \rceil \\
+                \gdw 2 \cdot \lceil \log_k (n+1) \rceil &\leq 2 \cdot \lceil \log_k n \rceil + 2 \\
+                \gdw 2 \cdot \lceil \log_k (n+1) \rceil &\leq 2 \cdot \lceil \log_k n + 1 \rceil \\
+                \gdw 2 \cdot \lceil \log_k (n+1) \rceil &\leq 2 \cdot \lceil \log_k (n \cdot k) \rceil \\
+                \gdw n+1 &\leq n \cdot k
+            \end{split}
+        \end{equation}
+        Für alle $k \geq 2$ und $n \geq 1$ gilt die Ungleichung.
+        Daher gilt die Aussage.
+        
 
     \item
         Die Aussage ist richtig. \\
