@@ -31,7 +31,33 @@
         Da auf einem Pfad mit $n$ Knoten $n-1$ Kanten liegen, gilt die Aussage.
 
     \item
-        TODO
+        Die Aussage ist falsch. \\
+        In Abbildung \ref{fig:tree-path} ist ein Baum $G'$ zu sehen.
+        \begin{equation}
+            G' = (V', E') = \left( \{a,b,c\}, \{ (a,b), (b,a), (b,c), (c,b) \} \right)
+        \end{equation}
+        Der rot markierte Pfad $\pi = abcba$ ist kein einfacher Pfad, da $a$
+        und $b$ jeweils zweimal auftreten.
+        \begin{figure}[h]
+            \centering
+            \begin{tikzpicture}[
+                semithick,
+                auto,
+            ]
+                \tikzstyle{path}=[->, >=stealth', red, bend left]
+                \node [circle, draw] (a) [] {$a$};
+                \node [circle, draw] (b) [right= of a] {$b$};
+                \node [circle, draw] (c) [right= of b] {$c$};
+                \draw (a) to (b);
+                \draw (b) to (c);
+                \draw [path] (a) to (b);
+                \draw [path] (b) to (c);
+                \draw [path] (c) to (b);
+                \draw [path] (b) to (a);
+            \end{tikzpicture}
+            \caption{Pfad in einem Baum}
+            \label{fig:tree-path}
+        \end{figure}
 
     \item
         Die Aussage ist falsch. \\
@@ -57,7 +83,10 @@
         aller Grade doppelt gezählt.
 
     \item
-        TODO
+        TODO \\
+        Der längste kürzeste Pfad zwischen zwei Knoten in einem $k$-nären Baum
+        tritt auf, wenn sich beide Knoten auf der untersten Ebene befinden und
+        der einzige gemeinsame Vorfahre die Wurzel des Baumes ist.
 
     \item
         Die Aussage ist richtig. \\
