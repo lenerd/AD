@@ -12,4 +12,84 @@
 \begin{document}
 \maketitle
 
+Sei $G = (V, E)$ ein DAG und $s \in V$.
+
+\begin{algorithm}
+    \caption{\textsc{DAG-Bellman-Ford}}
+    \label{alg:dag-bf}
+    \begin{algorithmic}[1]
+        \Procedure{DAG-Bellman-Ford}{$G, s$}
+            \State \Call{InitializeSingleSource}{$G, s$}
+            \State $list \gets$ \Call{Topological-Sort}{$G$}
+            \For {$v$ \textbf{in} $list$}
+                \For {\textbf{all} $(u, v)$ \textbf{in} $G.E$}
+                    \State \Call{Relax}{$u, v$}
+                \EndFor
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{behaupt}
+    In Algorithmus \ref{alg:dag-bf} wird \textsc{Relax} höchstens $|E|$-mal
+    aufgerufen.
+\end{behaupt}
+\begin{proof}
+    Nach Zeile 3 befinden sich alle Knoten von $G$ in topologischer Reihenfolge
+    in $list$.
+    Die innere Schleife wird für jeden Knoten einmal aufgerufen.
+    In dieser Schleife wird \textsc{Relax} einmal für jede Kante, welche zu
+    diesem Knoten führt, aufgerufen.
+    Da jede Kante zu genau einem Knoten führt, wird \textsc{Relax} für jede
+    Kante genau einmal aufgerufen.
+    Dies sind genau $|E|$ Ausführungen von \textsc{Relax}.
+\end{proof}
+
+\begin{behaupt}
+    Algorithmus \ref{alg:dag-bf} löst das Single-Source-Shortest-Path-Problem.
+\end{behaupt}
+\begin{proof}
+    Sei $t \in V$ und sei \textbf{vor} die Relation in der topologischen
+    Sortierung.
+    \begin{itemize}
+        \item $t = s$ \\
+            In \textsc{InitializeSingleSource} wird die korrekte Distanz (0) gesetzt.
+
+        \item $t \textbf{ vor } s$ \\
+            Da $G$ ein DAG ist und es einen Pfad von $t$ nach $s$ gibt,
+            existiert kein Pfad von $s$ zu $t$ (sonst wäre $G$ nicht azylisch).
+
+        \item $t \neq s \land \lnot (t \textbf{ vor } s) \land \lnot (s \textbf{ vor } t)$ \\
+            Es gibt keinen Pfad zwischen $s$ und $t$.
+
+        \item $s \textbf{ vor } t$
+            \begin{enumerate}
+                \item Induktionsanfang: $(s, t) \in E$ \\
+                    Sobald die äußere Schleife bei $t$ angekommen ist, wird
+                    \textsc{Relax} für diese Kante aufgerufen und setzt die
+                    korrekte Distanz von $s$ zu $t$ (gegeben durch $w(s, t)$),
+                    da $t.dist = \infty > s.dists + w(s, t) = w(s, t)$ galt.
+
+                \item Induktionsannahme: Bei Erreichen eines Knotens $k$ in
+                    $list$ wird die korrekte Distanz zu $s$ gesetzt.
+
+                \item Induktionsschritt $(s, t) \notin E$ \\
+                    Dann gibt es eine Menge von Knoten
+                    \begin{equation}
+                        K = \left\{ k \in V \ |\  s \textbf{ vor } k \land (k, t) \in E \right\}
+                    \end{equation}
+                    Da für alle $k \in K$ gilt, $(k, t) \in E$, gilt auch $k \textbf{ vor } t$.
+                    Bevor die äußere Schleife $t$ erreicht, hat sie bereits alle
+                    $k$ bearbeitet.
+                    Nach der Induktionsannahme haben alle $k$ bereits die
+                    korrekte Distanz zu $s$.
+                    Während $t$ in der Schleife gewählt ist, werden die Kanten
+                    von $k \in K$ durchlaufen und
+                    $t.dist = \textrm{min}(k.dist + w(k, t))$ gesetzt.
+                    
+            \end{enumerate}
+
+    \end{itemize}
+\end{proof}
+
 \end{document}
