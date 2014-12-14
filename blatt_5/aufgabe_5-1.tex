@@ -13,6 +13,7 @@
 \maketitle
 
 Sei $G = (V, E)$ ein DAG und $s \in V$.
+Sei \textbf{vor} die Relation in der topologischen Sortierung.
 
 \begin{algorithm}
     \caption{\textsc{DAG-Bellman-Ford}}
@@ -21,7 +22,11 @@ Sei $G = (V, E)$ ein DAG und $s \in V$.
         \Procedure{DAG-Bellman-Ford}{$G, s$}
             \State \Call{InitializeSingleSource}{$G, s$}
             \State $list \gets$ \Call{Topological-Sort}{$G$}
-            \For {$v$ \textbf{in} $list$}
+            \State $start \gets 0$
+            \While {$list[start] \neq s$}
+                \State $start \gets start + 1$
+            \EndWhile
+            \For {$v$ \textbf{in} $list[start + 1 : |V|]$}
                 \For {\textbf{all} $(u, v)$ \textbf{in} $G.E$}
                     \State \Call{Relax}{$u, v$}
                 \EndFor
@@ -37,20 +42,21 @@ Sei $G = (V, E)$ ein DAG und $s \in V$.
 \begin{proof}
     Nach Zeile 3 befinden sich alle Knoten von $G$ in topologischer Reihenfolge
     in $list$.
-    Die innere Schleife wird für jeden Knoten einmal aufgerufen.
+    Die innere Schleife wird für jeden Knoten $v$ mit $s \textbf{ vor } v$
+    einmal aufgerufen.
+    Dies sind höchstens $|V| - 1$ Knoten.
     In dieser Schleife wird \textsc{Relax} einmal für jede Kante, welche zu
     diesem Knoten führt, aufgerufen.
     Da jede Kante zu genau einem Knoten führt, wird \textsc{Relax} für jede
-    Kante genau einmal aufgerufen.
-    Dies sind genau $|E|$ Ausführungen von \textsc{Relax}.
+    Kante höchstens einmal aufgerufen.
+    Dies sind höchstens $|E|$ Ausführungen von \textsc{Relax}.
 \end{proof}
 
 \begin{behaupt}
     Algorithmus \ref{alg:dag-bf} löst das Single-Source-Shortest-Path-Problem.
 \end{behaupt}
 \begin{proof}
-    Sei $t \in V$ und sei \textbf{vor} die Relation in der topologischen
-    Sortierung.
+    Sei $t \in V$.
     \begin{itemize}
         \item $t = s$ \\
             In \textsc{InitializeSingleSource} wird die korrekte Distanz (0) gesetzt.
@@ -58,9 +64,15 @@ Sei $G = (V, E)$ ein DAG und $s \in V$.
         \item $t \textbf{ vor } s$ \\
             Da $G$ ein DAG ist und es einen Pfad von $t$ nach $s$ gibt,
             existiert kein Pfad von $s$ zu $t$ (sonst wäre $G$ nicht azylisch).
+            $t$ steht vor $s$ in $list$.
+            Da nur der Teil von $list$ ab $s$ bearbeitet wird, wird die Distanz
+            von $s$ nach $t$ nicht neu gesetzt, nachdem sie mit $\infty$
+            initialisiert wurde.
 
         \item $t \neq s \land \lnot (t \textbf{ vor } s) \land \lnot (s \textbf{ vor } t)$ \\
             Es gibt keinen Pfad zwischen $s$ und $t$.
+            Falls $t$ vor $s$ in $list$ steht, wird die Schleife nicht auf $t$
+            ausgeführt, sonst wird wie in dem nächsten Punkt vorgegangen.
 
         \item $s \textbf{ vor } t$
             \begin{enumerate}
@@ -86,6 +98,7 @@ Sei $G = (V, E)$ ein DAG und $s \in V$.
                     Während $t$ in der Schleife gewählt ist, werden die Kanten
                     von $k \in K$ durchlaufen und
                     $t.dist = \textrm{min}(k.dist + w(k, t))$ gesetzt.
+                    Ist $K = \emptyset$, so bleibt $t.dist = \infty$.
                     
             \end{enumerate}
 
