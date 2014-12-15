@@ -58,13 +58,13 @@
                 \Procedure{InitializeSingleSource}{$G, s$}
                     \For {\textbf{all} $v \in V$}
                         \State $v.value \gets \infty$
-                        \State $v.error \gets \infty$
-                        \State $v.edges \gets \infty$
+                        % \State $v.error \gets \infty$
+                        % \State $v.edges \gets \infty$
                         \State $v.path \gets None$
                     \EndFor
                     \State $s.value \gets 0$
-                    \State $s.error \gets 0$
-                    \State $s.edges \gets 0$
+                    % \State $s.error \gets 0$
+                    % \State $s.edges \gets 0$
                     \State $s.path \gets [1,]$
                 \EndProcedure
                 \Statex
@@ -73,8 +73,8 @@
                     \State $newval \gets u.value + \alpha + \beta \cdot $ \Call{Error}{$u, v$}
                     \If {$u.value > newval$}
                         \State $v.value \gets newval$
-                        \State $v.error \gets u.error + $ \Call{Error}{$u, v$}
-                        \State $v.edges \gets u.edges + 1$
+                        % \State $v.error \gets u.error + $ \Call{Error}{$u, v$}
+                        % \State $v.edges \gets u.edges + 1$
                         \State $v.path \gets u.path + v$
                     \EndIf
                 \EndProcedure
