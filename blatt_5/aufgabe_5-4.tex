@@ -1,6 +1,7 @@
 \documentclass[a4paper]{scrartcl}
 
 \input{preamble}
+\usepackage{minted}
 
 \title{Algorithmen und Datenstrukturen}
 \subtitle{Übungsblatt 5 - Aufgabe 4}
@@ -14,8 +15,62 @@
 
 \begin{enumerate}[(a)]
     \item
+        Da wir nicht die Länge des Pfades wissen wollen, sondern, wie groß die
+        Wahrscheinlichkeit im besten Falle ist, dass die Übertragung zwischen
+        zwei Knoten funktioniert, müssen wir ein paar kleinere Änderungen an
+        Dijkstras Algorithmus vornehmen.
 
-    \item
+        Im Folgenden ist mit $d(v)$ immer die Wahrscheinlichkeit zu einem
+        Knoten $v$ gemeint.
+        \begin{itemize}
+            \item $d(s)$ wird mit 1 initialisiert.
+            \item Die Kantengewichte werden miteinander multipliziert statt
+                addiert, um die Wahrscheinlichkeit zu erhalten.
+            \item Es wird jeweils die maximale Wahrscheinlichkeit gesucht statt
+                der minimalen Länge.
+            \item Da wir zwei Knoten gegeben haben, können wir abbrechen,
+                sobald das Ziel in der Menge $S$ enthalten ist.
+        \end{itemize}
+
+        \begin{algorithm}
+            \caption{\textsc{Dijkstra-Routing}}
+            \label{alg:dag-bf}
+            \begin{algorithmic}[1]
+                \Procedure{Dijkstra-Routing}{$G, s, t$}
+                    \State $S \gets \{ s \}$
+                    \State $d(s) \gets 1$
+                    \While {$t \notin S \land S \neq V$}
+                        \State $U \gets \{ u \notin S \ |\  u
+                            \text{ neigh. of a vertex } \in S \}$
+                        \If {$U = \emptyset$}
+                            \State \Return $0$
+                        \EndIf
+                        \For {\textbf{all} $u \in U$}
+                            \For {\textbf{all} $pre(u) \in S$ that are predecessors of $u$}
+                                \State $d'(u, pre(u)) \gets d(pre(u)) \cdot w(pre(u), u)$
+                            \EndFor
+                        \EndFor
+                        \State $d^* \gets \textrm{max} \{ d'(u, pre(u)) \ |\  u \in U, pre(u) \in S \}$
+                        \State $u^* \gets \textrm{argmax} \{ d'(u, pre(u)) \ |\  u \in U, pre(u) \in S \}$
+                        \State $d(u^*) = d^*$
+                        \State $S = S \cup \{ u^* \}$
+                    \EndWhile
+                    \State \Return $d(t)$
+                \EndProcedure
+            \end{algorithmic}
+        \end{algorithm}
+
+    \FloatBarrier
+
+    \item Implementation in Python
+        % \lstinputlisting[
+        %     language=Python,
+        %     numbers=left,
+        % ]
+        % {routing.py}
+        \inputminted[
+            linenos=true,
+        ]{python}{routing.py}
 
 \end{enumerate}
 
