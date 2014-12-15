@@ -48,7 +48,8 @@
                     \State $diffquot \gets \frac{f(x_v) - f(x_u)}{x_v - x_u}$
                     \State $error \gets 0$
                     \For {$w \in \left\{ w \in V \ \vert\  w > u \land w < v \right\}$}
-                        \State $error \gets error + \left( f(x_u) + diffquot \cdot (x_w - x_u) \right)$
+                        \State $g(x_w) \gets f(x_u) + diffquot \cdot (x_w - x_u)$
+                        \State $error \gets error + \left\vert f(x_w) - g(x_w) \right\vert^2$
                     \EndFor
                     \State \Return $error$
                 \EndProcedure
@@ -56,9 +57,12 @@
                 %
                 \Procedure{InitializeSingleSource}{$G, s$}
                     \For {\textbf{all} $v \in V$}
+                        \State $v.value \gets \infty$
                         \State $v.error \gets \infty$
                         \State $v.edges \gets \infty$
+                        \State $v.path \gets None$
                     \EndFor
+                    \State $s.value \gets 0$
                     \State $s.error \gets 0$
                     \State $s.edges \gets 0$
                     \State $s.path \gets [1,]$
