@@ -14,6 +14,78 @@
 
 \begin{enumerate}[(a)]
     \item
+        Das Problem lässt sich, wie folgt, als gerichteten Graphen $G = (V, E)$
+        darstellen.
+        Jeder Punkt $(x_i, f(x_i))$ für $i = 1,  \ldots, n$ wird als Knoten
+        $i \in V$ repräsentiert.
+        Die Menge der Kanten ist definiert als
+        \begin{equation}
+            E = \left\{ (i, j) \ \vert\  \forall i, j \in V : i < j \right\}
+            \text{ .}
+        \end{equation}
+        Es handelt sich offensichtlich um einen gerichteten, azyklischen Graphen
+        (DAG) mit der einzigen topologischen Sortierung
+        \begin{equation}
+            \pi = 1, 2, 3, \ldots, n
+        \end{equation}
+        Sei $e$ die Anzahl der durchlaufenden Kanten in einem Pfad.
+        $e$ entspricht der Anzahl linearer Segmente von $g$.
+        Würde man $g$ durch alle gegebenen Punkte legen, so würde man alle
+        $n$ Knoten ablaufen und dabei $n-1$ Kanten durchlaufen.
+        „Überspringt“ man $k$ Punkte von $f$, so nimmt man die Kante von $i$
+        nach $j = i+k+1$.
+        Jede Kante in $E$ muss als Kantengewichtung die Summe der Fehler haben,
+        welche zwischen $g$ und $f$ an allen übersprungenen Punkten entstehen.
+        Der gegebene Ausdruck wird minimiert, wenn die Summe aus der Anzahl der
+        Kanten (mit $\alpha$ gewichtet) und der Summe der Fehler (mit $\beta$
+        gewichtet) minimiert wird.
+        
+        \begin{algorithm}
+            \caption{\textsc{DAG-Bellman-Ford}}
+            \label{alg:dag-bf}
+            \begin{algorithmic}[1]
+                \Procedure{Error}{$u, v$}
+                    \State $diffquot \gets \frac{f(x_v) - f(x_u)}{x_v - x_u}$
+                    \State $error \gets 0$
+                    \For {$w \in \left\{ w \in V \ \vert\  w > u \land w < v \right\}$}
+                        \State $error \gets error + \left( f(x_u) + diffquot \cdot (x_w - x_u) \right)$
+                    \EndFor
+                    \State \Return $error$
+                \EndProcedure
+                \Statex
+                %
+                \Procedure{InitializeSingleSource}{$G, s$}
+                    \For {\textbf{all} $v \in V$}
+                        \State $v.error \gets \infty$
+                        \State $v.edges \gets \infty$
+                    \EndFor
+                    \State $s.error \gets 0$
+                    \State $s.edges \gets 0$
+                    \State $s.path \gets [1,]$
+                \EndProcedure
+                \Statex
+                %
+                \Procedure{Relax}{$u, v, \alpha, \beta$}
+                    \State $newval \gets u.value + \alpha + \beta \cdot $ \Call{Error}{$u, v$}
+                    \If {$u.value > newval$}
+                        \State $v.value \gets newval$
+                        \State $v.error \gets u.error + $ \Call{Error}{$u, v$}
+                        \State $v.edges \gets u.edges + 1$
+                        \State $v.path \gets u.path + v$
+                    \EndIf
+                \EndProcedure
+                \Statex
+                %
+                \Procedure{DAG-Bellman-Ford}{$G, s, \alpha, \beta$}
+                    \State \Call{InitializeSingleSource}{$G, 1$}
+                    \For {$v$ \textbf{in} $1, 2, 3, \ldots, n$}
+                        \For {\textbf{all} $(u, v)$ \textbf{in} $G.E$}
+                            \State \Call{Relax}{$u, v, \alpha, \beta$}
+                        \EndFor
+                    \EndFor
+                \EndProcedure
+            \end{algorithmic}
+        \end{algorithm}
 
     \item
 
