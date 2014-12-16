@@ -14,12 +14,112 @@
 
 \begin{enumerate}[(a)]
     \item
+        Das Problem, die Länge des kürzesten einfachen Pfades zu finden, ist nur
+        dann definiert, wenn der betrachtete Graph $G$ stark zusammenhängend
+        ist.
+        Andernfalls existiert im allgemeinen Fall kein Pfad von $u$ nach $v$ für
+        beliebige $u, v \in G.V$.
+        Im Folgenden nehmen wir an, dass es sich um stark zusammenhängende
+        Graphen handelt.
 
     \item
+        Da uns \textsc{BellmanFord} nur $-\infty$ zurückgibt, wenn negative
+        Zyklen genommen werden können, müssen wir uns die Pfadlängen auf andere
+        Art besorgen.
+        Da es einen kürzesten einfachen Pfad gibt, gibt es eine Teilmenge von
+        $E$, welche die Kanten des Pfades enthält, jedoch nicht den negativen
+        Zyklus, der das Ergebnis verfälscht hat.
+        Die Idee ist, für jede Teilmenge $E'$ von $E$ einen neuen Graphen
+        $G = (V, E')$ zu bauen und \textsc{BellmanFord} auf diesen auszuführen.
+        Nach jedem Durchlauf schauen wir, ob für die Pfadlänge zu einem Knoten
+        $v$ größer als $-\infty$ und kleiner als die bisher kürzeste Pfadlänge
+        $v.dist^*$ ist.
+        Damit ignorieren wir alle durch negative Zyklen verfälschten Werte und
+        finden die Länge des kürzesten einfachen Pfads.
+        Diese steht nach Termination in $v.dist^*$ für die Pfad von $s$ bis $v$.
+        Das Vorgehen ist auch in Algorithmus \ref{alg:s4p} auf Seite
+        \pageref{alg:s4p} beschrieben.
+
+        \begin{algorithm}
+            \caption{\textsc{Single-Source-Shortest-Simple-Path}}
+            \label{alg:s4p}
+            \begin{algorithmic}[1]
+                \Procedure{S4P}{$G, s$}
+                    \For {$v \in G.V$}
+                        \State {$v.dist^* \gets \infty$}
+                    \EndFor
+                    \State $s.dist^* \gets 0$
+                    \For {$E' \in \mathcal{P}(G.E)$}
+                        \State $G' \gets (G.V, E')$
+                        \State \Call{BellmanFord}{$G', s$}
+                        \For {$v \in G.V$}
+                            \If {$-\infty < v.dist < v.dist^*$}
+                                \State $v.dist \gets v.dist$
+                            \EndIf
+                        \EndFor
+                    \EndFor
+                \EndProcedure
+            \end{algorithmic}
+        \end{algorithm}
+
+        \paragraph{Korrektheit}
+        Sei $\pi = s \ldots v$ der kürzeste einfache Pfad von $s$ nach $v$.
+        Da der Algorithmus den Graphen mit jeder Teilmenge an Kanten durchgeht,
+        treffen wir nach Konstruktion auf die Teilmenge
+        \begin{equation}
+            E' = \left\{ (i, j) \ \vert\  ij \text{ ist ein Teilwort von } \pi \right\} \text{ .}
+        \end{equation}
+        In dem Graphen $G' = (V, E')$ kann \textsc{BellmanFord} nicht durch
+        negative Zyklen abgelenkt werden und gibt die korrekte Länge des Pfades
+        $\pi$ zurück.
+        Nach der Iteration der zweiten Schleife mit obigem $E'$ wird $v.dist^*$
+        auf den richtigen (und damit kleinsten) Wert gesetzt.
+        
 
     \item
+        Die Laufzeit von Algorithmus \ref{alg:s4p} liegt für kein festes
+        $k \in \mathbb{N}$ in $\mathcal{O} (n^k)$.
+
+        Die erste und die dritte Schleife (Zeile 2) werden jeweils $|V|$-mal
+        durchlaufen.
+        Die zweite Schleife iteriert über alle Teilmengen von $G.E$, wird also
+        $2^{|E|}$-mal ausgeführt.
+        \textsc{BellmanFord} liegt in $\mathcal{O}(|V| \cdot |E|)$.
+        Die Konstruktion der Potenzmenge braucht ebenfalls Zeit.
+        
+        Die Zeitkomplexität liegt also in
+        \begin{equation}
+            \Omega \left( 2^{|E|} \cdot |V| \cdot |E| \right) \text{ .}
+        \end{equation}
+
+        Bei Eingabe eines vollständigen Graphen wird die worst-case Laufzeit
+        erreicht.
+
+        Das bekannte Problem \emph{longest path problem}
+        \footnote{\url{http://sarielhp.org/misc/funny/longestpath.mp3}},
+        den längsten einfachen Pfad zu finden, ist ein NP-schweres Problem.
+        Es ist also nicht in Polynomialzeit zu lösen, wenn man davon ausgeht,
+        dass $P \neq NP$ gilt.
+        Nun kann man das Longest Path Problem auf das Shortest Simple Path
+        Problem reduzieren.
+        Der längste einfache Pfad in einem Graphen $G$ entspricht dem kürzesten
+        einfachen Pfad in $G'$, wenn $G'$ aus $G$ durch Negation der
+        Kantengewichte hervorgeht (in linearer Zeit möglich).
+        Hätten wir einen effizienten Algorithmus für unser Problem, so könnten
+        wir mit diesem das Longest Path Problem effizient lösen, was in
+        Widerspruch zu der Tatsache steht, dass es NP-schwierig ist.
+
 
     \item
+        Unter der Voraussetzung, dass $G$ keine negativen Zyklen enthält, kann
+        das Problem gelöst werden, indem einfach \textsc{BellmanFord} angewandt
+        wird.
+        Der Algorithmus bestimmt die Länge des kürzesten Pfades von einem
+        gegebenen Knoten $s$ zu allen anderen Knoten.
+        Das Durchlaufen von positiven Zyklen würde die Länge des Pfades nicht
+        verkürzen und negative Zyklen sind nach Voraussetzung nicht vorhanden.
+        Also findet \textsc{BellmanFord} alle kürzesten einfachen Pfade, die von
+        $s$ ausgehen.
 
 \end{enumerate}
 
