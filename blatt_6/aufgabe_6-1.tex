@@ -12,5 +12,38 @@
 \begin{document}
 \maketitle
 
+\begin{algorithm}
+    \caption{\textsc{Modified Floyd-Warshall}}
+    \label{alg:fw}
+    \begin{algorithmic}[1]
+        \Procedure{FloydWarshall'}{$W$}
+            \State $n \gets$ \text{number of vertices}
+            \State $D^{(0)} \gets W$
+            \Comment Matrix of size $n \times n$
+            \State Let $\Pi$ be a new $n \times n$ Matrix
+            \Comment predecessor matrix
+            \State $\pi(u, v) \gets
+            \begin{cases}
+                NULL & \text{if } u = v \text{ or } w(i,j) = \infty \\
+                u & \text{else} \\
+            \end{cases}$
+            \For {$k = 1, \ldots, n$}
+                \State Let $D^{(k)}$ be a new $n \times n$ Matrix
+                \For {$s = 1, \ldots, n$}
+                    \For {$t = 1, \ldots, n$}
+                        \State $d_k(s,t) \gets \min \left\{ d_{k-1}(s,t),
+                        d_{k-1}(s,k) + d_{k-1}(k,t) \right\}$
+                        \If {$d_k(s,t) \neq d_{k-1}(s,t)$}
+                            \State $\pi(s,t) \gets \pi(k, t)$
+                        \EndIf
+                    \EndFor
+                \EndFor
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+% TODO
+TODO: Korrektheit
 
 \end{document}
