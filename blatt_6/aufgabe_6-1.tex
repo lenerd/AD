@@ -40,10 +40,62 @@
                 \EndFor
             \EndFor
         \EndProcedure
+        \Procedure{PrintPath}{$\Pi, s, t$}
+            \If {$s =  t$}
+                \State print $s$
+            \ElsIf {$\pi(s,t) = -1$}
+                \State print „there is no path from $s$ to $t$“
+            \Else
+                \State \Call{PrintPath}{$\Pi, s, \pi(s, t)$}
+                \State print $t$
+            \EndIf
+        \EndProcedure
     \end{algorithmic}
 \end{algorithm}
 
-% TODO
-TODO: Korrektheit
+\section*{Korrektheit}
+\begin{behaupt}
+    Die Matrix ist die Vorgängermatrix für die kürzesten Pfade zwischen allen
+    Knoten.
+    $\pi(u,v) = x$ ist der vorletzte Knoten auf dem Pfad von $u$ nach $v$.
+    Der Pfad ist also $u, \ldots, x, v$.
+\end{behaupt}
+\begin{proof} \hfill \\
+    In jeder Iteration der Schleife enthält $\pi(u,v)$ den Vorgänger von $v$ auf
+    dem zu der Zeit kürzesten bekannten Pfad von $u$ nach $v$.
+
+    \subparagraph{1. Induktionsanfang:} \hfill \\
+    Während der Initialisierung sind nur Pfade bekannt, welche aus einer Kante
+    im Graphen bestehen.
+    Existiert keine Kante zwischen $s$ und $t$, so gilt $w(s,t) = \infty$ und
+    $\pi(s,t)$ wird mit $NULL$ initialisiert.
+    Gilt $s = t$, so besteht der Pfad nur aus $s$ und ein Vorgänger ist nicht
+    vorhanden; auch hier wird mit $NULL$ initialisiert.
+    Ist eine Kante von $s$ nach $t$ vorhanden, so wird der $\pi(s,t) = s$
+    gesetzt, da der kürzeste bekannte Pfad $s, t$ ist.
+    \\
+    \\
+    Angenommen die Behauptung gelte in einer Iteration $k-1$ ($k$ fest).
+
+    \subparagraph{2. Induktionsschritt:} \hfill \\
+    Ändert sich der kürzeste bekannte Pfad in der $k$-ten Iteration
+    (in Zeile~11 geprüft), so muss ein neuer Vorgänger gesetzt werden.
+    In diesem Fall gilt $d_k(s,t) = d_{k-1}(s,k) + d_{k-1}(k,t)$.
+    Der neue, kürzere Pfad besteht also aus dem Pfad von $s$ nach $k$
+    konkateniert mit dem Pfad von $k$ nach $t$.
+    Der neue Vorgänger $\pi(s,t)$ ist also der Vorgänger von $t$ auf dem Pfad
+    von $k$ nach $t$: $\pi(k,t)$ (Zeile~12).
+    \\
+    \\
+    Da davon ausgegangen wird, dass der Floyd-Warshall-Algorithmus korrekt ist
+    und nach der letzten Iteration der äußeren Schleife die Länge des kürzesten
+    Pfades liefert, ist nach 1. und 2. der richtige Vorgänger auf diesem Pfad
+    in $\Pi$ eingetragen.
+
+    Der Pfad lässt sich einfach mit der rekursiven Funktion \textsc{PrintPath}
+    ausgeben.
+
+
+\end{proof}
 
 \end{document}
