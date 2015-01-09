@@ -12,5 +12,108 @@
 \begin{document}
 \maketitle
 
+\begin{enumerate}
+    \item Iteration
+        \begin{equation*}
+            u = Frankfurt
+        \end{equation*}
+        \begin{align*}
+            Mannheim.dist &= 85 \\
+            Mannheim.\pi &= Frankfurt \\
+            Würzburg.dist &= 217 \\
+            Würzburg.\pi &= Frankfurt \\
+            Kassel.dist &= 173 \\
+            Kasse.\pi &= Frankfurt
+        \end{align*}
+        \begin{align*}
+            Augsburg.status &= unreached \\
+            Erfurt.status &= unreached \\
+            Frankfurt.status &= settled \\
+            Karlsruhe.status &= unreached \\
+            Kassel.status &= labelchanged \\
+            Mannheim.status &= labelchanged \\
+            München.status &= unreached \\
+            Nürnberg.status &= unreached \\
+            Stuttgart.status &= unreached \\
+            Würzburg.status &= labelchanged \\
+        \end{align*}
+        
+    \item Iteration
+        \begin{equation*}
+            u = Würzburg
+        \end{equation*}
+        \begin{align*}
+            Nürnberg.dist &= 320 \\
+            Nürnberg.\pi &= Würzburg \\
+            Erfurt.dist &= 403 \\
+            Erfurt.\pi &= Würzburg
+        \end{align*}
+        \begin{align*}
+            Augsburg.status &= unreached \\
+            Erfurt.status &= labelchanged \\
+            Frankfurt.status &= settled \\
+            Karlsruhe.status &= unreached \\
+            Kassel.status &= labelchanged \\
+            Mannheim.status &= labelchanged \\
+            München.status &= unreached \\
+            Nürnberg.status &= labelchanged \\
+            Stuttgart.status &= unreached \\
+            Würzburg.status &= settled \\
+        \end{align*}
+        
+    \item Iteration
+        \begin{equation*}
+            u = Mannheim
+        \end{equation*}
+        \begin{align*}
+            Karlsruhe.dist &= 165 \\
+            Karlsruhe.\pi &= Mannheim
+        \end{align*}
+        \begin{align*}
+            Augsburg.status &= unreached \\
+            Erfurt.status &= labelchanged \\
+            Frankfurt.status &= settled \\
+            Karlsruhe.status &= labelchanged \\
+            Kassel.status &= labelchanged \\
+            Mannheim.status &= settled \\
+            München.status &= unreached \\
+            Nürnberg.status &= labelchanged \\
+            Stuttgart.status &= unreached \\
+            Würzburg.status &= settled \\
+        \end{align*}
+        
+    \item Iteration
+        \begin{equation*}
+            u = Nürnberg
+        \end{equation*}
+        \begin{align*}
+            München.dist &= 487 \\
+            München.\pi &= Nürnberg \\
+            Stuttgart.dist &= 503 \\
+            Stuttgart.\pi &= Nürnberg
+        \end{align*}
+        \begin{align*}
+            Augsburg.status &= unreached \\
+            Erfurt.status &= labelchanged \\
+            Frankfurt.status &= settled \\
+            Karlsruhe.status &= labelchanged \\
+            Kassel.status &= labelchanged \\
+            Mannheim.status &= settled \\
+            München.status &= labelchanged \\
+            Nürnberg.status &= settled \\
+            Stuttgart.status &= labelchanged \\
+            Würzburg.status &= settled \\
+        \end{align*}
+        
+    \item Iteration
+        \begin{equation*}
+            u = München
+        \end{equation*}
+        Termination
+
+\end{enumerate}
+
+Der kürzeste Pfad von Frankfurt nach Münschen verläuft über
+Würzburg und Nürnberg; die Länge beträgt \SI{487}{\kilo\meter}.
 
 \end{document}
