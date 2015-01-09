@@ -12,5 +12,37 @@
 \begin{document}
 \maketitle
 
+Gegeben sei ein zusammenhängender kantengewichteter Graph $G = (V, E)$ und ein
+minimaler Spannbaum $T = (V, E')$ von $G$.
+
+\begin{enumerate}[(a)]
+    \item
+        \begin{behaupt}
+            Es wird das Gewicht einer Kante $e \in E \backslash E'$ erhöht,
+            $T$ ist auch ein minimaler Spannbaum des veränderten Graphen $G'$.
+        \end{behaupt}
+        \begin{proof}
+            Angenommen $T$ sei kein MST in $G'$.
+            Dann gibt es einen MST $T'_{G'} \neq T$ in $G'$.
+            Nach diesen Annahmen muss $w(T'_{G'}) < w(T)$ gelten.
+            \begin{enumerate}
+                \item $T'_{G'}$ enthält $e$ \\
+                    Da $w(e)$ erhöht wurde, muss für ein $T' = T'_{G'}$ in $G$ gelten
+                    $w(T') < w(T'_{G'}) < w(T)$.
+
+                \item $T'_{G'}$ enthält $e$ nicht \\
+                    Dann gibt es ein $T' = T'_{G'}$ in $G$ geben für das gilt
+                    $w(T') = w(T'_{G'}) < w(T)$.
+            \end{enumerate}
+            Dies sind Widersprüche zu der gegebenen Aussage, dass $T$ ein MST
+            in $G$ ist.
+            Daher muss obige Annahme falsch sein und $T$ ist auch ein minimaler
+            Spannbaum des veränderten Graphen $G'$.
+        \end{proof}
+
+    \item
+
+\end{enumerate}
+
 
 \end{document}
