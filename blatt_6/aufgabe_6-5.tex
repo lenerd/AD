@@ -12,5 +12,74 @@
 \begin{document}
 \maketitle
 
+\begin{enumerate}[(a)]
+    \item
+        \begin{behaupt}
+            Falls für einen Schnitt $C = (S, V \backslash S)$ von $G$ eine
+            eindeutig bestimmte Schnittkante $e$ mit minimalem Gewicht
+            existiert, so ist $e$ in jedem MST vorhanden.
+        \end{behaupt}
+        \begin{proof}[Beweis durch Widerspruch]
+            Angenommen es gäbe einen MST $T$ ohne $e$.
+            Da MSTs zusammenhängend sind, würde durch Hinzunahme von $e$ ein
+            Kreis entstehen.
+            Also muss $T$ eine andere Schnittkante $f$ enthalten.
+            Da $w(e) < w(f)$ gilt, kann durch Austauschen von $e$ und $f$ ein
+            Spanning Tree $T'$ mit $w(T') < w(T)$ entstehen.
+            Dies ist ein Widerspruch zu der Annahme, dass $T$ ein MST sei.
+        \end{proof}
+        \begin{behaupt}
+            Falls für jeden Schnitt $(S, V \backslash S)$ von $G$ eine eindeutig
+            bestimmte Schnittkante mit minimalem Gewicht existiert, so hat $G$
+            einen eindeutig bestimmten minimalen Spannbaum.
+        \end{behaupt}
+        \begin{proof}
+            Sei $CE$ die Menge der eindeutigen Schnittkanten mit minimalem
+            Gewicht für alle Schnitte.
+            Da die erste Behauptung gilt, müssen alle Kanten in $CE$ auch in
+            einem MST vorkommen.
+            Dieser MST kann wie folgt konstruiert werden:
+            Betrachtet werden Schnitte $C_i = (A_i, V \backslash A_i)$, wobei
+            initial $|A_0| = 1$ gilt und anschließend in jedem der $|V| - 1$
+            Schritte ein weiterer Knoten hinzugefügt wird, welcher durch die
+            Schnittkante mit minimalem Gewicht bestimmt wird.
+            Diese ist für jeden $C_i$ vorhanden, eindeutig und muss in jedem
+            MST vorhanden sein.
+            Die Menge dieser Kanten ist $E'$ für den eindeutigen MST
+            $T = (V, E')$.
+        \end{proof}
+
+    \item
+        \begin{behaupt}
+            Folgende Aussage gilt im Allgemeinen nicht: \\
+            Für jeden Schnitt $(S, V \backslash S)$ von $G$ existiert eine
+            eindeutig bestimmte Schnittkante mit minimalem Gewicht, falls $G$
+            einen eindeutig bestimmten minimalen Spannbaum hat.
+        \end{behaupt}
+        \begin{proof}
+            Sei $G = (V, E)$ ein vollständiger Graph mit
+            \begin{equation}
+                V = \left\{ a, b, c \right\}
+            \end{equation}
+            und
+            \begin{equation}
+                \begin{split}
+                    w(a, b) &= 1 \\
+                    w(a, c) &= 1 \\
+                    w(b, c) &= 2
+                \end{split}
+            \end{equation}
+            Offensichtlich ist der Baum
+            \begin{equation}
+                T = \left(V, \left\{ \{a,b\}, \{a,c\} \right\} \right)
+            \end{equation}
+            der einzige MST von $G$.
+            Für den Schnitt $(\{a\}, \{b,c\})$ existiert jedoch keine eindeutig
+            bestimmte Schnittkante mit minimalem Gewicht:
+            Die beiden Schnittkanten $\{ a,b \}$ und $\{ a,c \}$ haben beide ein
+            Kantengewicht von $1$.
+        \end{proof}
+
+\end{enumerate}
 
 \end{document}
