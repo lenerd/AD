@@ -41,6 +41,75 @@ minimaler Spannbaum $T = (V, E')$ von $G$.
         \end{proof}
 
     \item
+        \begin{enumerate}[1.]
+            \item $e \in E'$
+                \begin{behaupt}
+                    $T$ ist auch im veränderten Graphen $G'$ ein minimaler
+                    Spannbaum.
+                \end{behaupt}
+                \begin{proof}
+                    Sei $k > 0$ die Differenz, um die das Gewicht von $e$
+                    verringert wird.
+                    Da $e$ in $T$ enthalten ist, gilt $w'(T) = w(T) - k < w(T)$.
+                    Angenommen $T$ sei kein MST in $G'$.
+                    Sei $T' \neq T$ ein MST in $G'$.
+                    \begin{enumerate}
+                        \item $T'$ enthält $e$ \\
+                            Es gilt $w(T') = w'(T') + k$
+                            Da $T$ ein MST in $G$ ist, muss gelten
+                            \begin{equation}
+                                \begin{split}
+                                    w(T) &\leq w(T') \\
+                                    w(T) - k &\leq w(T') - k \\
+                                    w'(T) &\leq w'(T')
+                                \end{split}
+                            \end{equation}
+                            Da $T'$ ein MST in $G'$ ist, folgt aus obiger
+                            Gleichung, dass auch $T$ ein MST in $G'$ sein muss.
+                            
+                        \item $T'$ enthält $e$ nicht \\
+                            Es gilt $w(T') = w'(T')$
+                            Da $T$ ein MST in $G$ ist, muss gelten
+                            \begin{equation}
+                                \begin{split}
+                                    w(T) &\leq w(T') \\
+                                    w'(T) < w(t) &\leq w(T') = w'(T')
+                                \end{split}
+                            \end{equation}
+                            $T'$ kann also kein MST in $G'$ sein.
+                    \end{enumerate}
+                    Dies ist ein Widerspruch; also muss unsere Annahme, $T$ sei
+                    kein MST von $G'$, falsch sein.
+
+                \end{proof}
+
+            \item $e \notin E'$ \\
+                \begin{behaupt}
+                    Mit folgendem Verfahren lässt sich mit Hilfe von $T$ ein
+                    minimaler Spannbaum für den Graphen $G'$ konstruieren. \\
+
+                    Sei
+                    \begin{equation}
+                        A = \left\{
+                            f \in E' \ |\  w'(f) \leq w'(e)
+                        \right\} \text{.}
+                    \end{equation}
+                    Ausgehend von $A$ wird Kruskals Algorithmus ausgeführt,
+                    wobei alle Kanten $g$ mit $w'(g) < w'(e)$ übersprungen
+                    werden und als Parition die Menge der
+                    Zusammenhangskomponenten verwendet wird.
+                \end{behaupt}
+                \begin{proof}
+                    Da die Kanten sortiert nach Gewicht in aufsteigender
+                    Reihenfolge durchlaufen werden, ist der Verlauf zu Beginn
+                    von Kruskals Algorithmus in $G$ und $G'$ der gleiche.
+                    Alle Kanten mit Gewichten $< w'(e)$ sind entweder in beiden
+                    MSTs vorhanden oder in keinem von beiden.
+                    Anschließend wird der Kruskals Algorithmus wie üblich (mit
+                    dem veränderten Gewicht) fortgesetzt.
+                \end{proof}
+
+        \end{enumerate}
 
 \end{enumerate}
 
