@@ -12,6 +12,7 @@
 \begin{document}
 \maketitle
 
+Ausführung von Kruskals Algorithmus
 \begin{enumerate}
     \item Iteration \\
         Kanten
@@ -135,5 +136,38 @@
         
 
 \end{enumerate}
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[
+            auto,
+            scale=2,
+        ]
+        \tikzstyle{vertex}=[
+            draw,
+            circle,
+        ]
+        \node [vertex] (v1) at (0,1) {$1$};
+        \node [vertex] (v2) at (1,2) {$2$};
+        \node [vertex] (v3) at (3,2) {$3$};
+        \node [vertex] (v4) at (4,1) {$4$};
+        \node [vertex] (v5) at (3,0) {$5$};
+        \node [vertex] (v6) at (1,0) {$6$};
+        \node [vertex] (v7) at (2,1) {$7$};
+
+        % \draw (v1) to node {$10$} (v2);
+        \draw (v1) to node {$8$}  (v6);
+        % \draw (v2) to node {$10$} (v3);
+        % \draw (v2) to node {$6$}  (v6);
+        \draw (v2) to node {$3$}  (v7);
+        \draw (v3) to node {$1$}  (v4);
+        \draw (v3) to node {$2$}  (v5);
+        % \draw (v3) to node {$4$}  (v7);
+        % \draw (v4) to node {$5$}  (v5);
+        % \draw (v5) to node {$9$}  (v6);
+        \draw (v5) to node {$3$}  (v7);
+        \draw (v6) to node {$4$}  (v7);
+    \end{tikzpicture}
+    \caption{MST des gegebenen Graphens}
+\end{figure}
 
 \end{document}
