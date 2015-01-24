@@ -12,4 +12,158 @@
 \begin{document}
 \maketitle
 
+\begin{enumerate}[(a)]
+    \item \hfill \\
+        \begin{algorithm}
+            \caption{\textsc{Max Non Adjacent Sum}}
+            \label{alg:1}
+            \begin{algorithmic}[1]
+                \Procedure{MNAS}{$a$}
+                \State $m \gets$ new array of size $n$
+                \State $m_1 \gets a_1$
+                \If {$a_2 > a_1$}
+                    \State $m_2 \gets a_2$
+                \Else
+                    \State $m_2 \gets a_1$
+                \EndIf
+                \For {$i = 3, \ldots, n$}
+                    \If {$m_{i-2} + a_i > m_{i-1}$}
+                        \State $m_i \gets m_{i-2} + a_i$
+                    \Else
+                        \State $m_i \gets m_{i-1}$
+                    \EndIf
+                \EndFor
+                \State \Call{Print}{$m_n$}
+                \EndProcedure
+            \end{algorithmic}
+        \end{algorithm}
+        \paragraph{Korrektheit} \hfill \\
+        Der Algorithmus \ref{alg:1} geht davon aus, dass die Folge mindestens
+        zwei Elemente besitzt.
+        Eine Anpassung für ein- und nullelementige Folgen ist leicht möglich,
+        indem der Wert des Elements bzw. 0 zurückgegeben wird.
+        Der Algorithmus hat eine Laufzeit in $\mathcal{O}(n)$, da
+        ausschließlich die einfache for-Schleife von $n$ abhängig ist.
+        \begin{behaupt}
+            Der Algorithmus berechnet das maximale Gewicht einer Teilfolge
+            einer Folge $a$ von $n$ positiven Zahlee unter der Bedingung, dass
+            keine zwei benachbarten Glieder von $a$ in dieser Teilfolge
+            vorkommen.
+            $m_i$ ist das maximale Gewicht dieser Teilfolge in dem Abschnitt
+            $a_1, \ldots, a_i$.
+        \end{behaupt}
+        \begin{proof}[Beweis durch vollständige Induktion] \hfill \\
+            \subparagraph{Induktionsanfang} \hfill \\
+            \begin{enumerate}
+                \item $i = 1$ \\
+                    Da nur ein Element betrachtet wird, gilt $m_1 = a_1$.
+                \item $i = 2$ \\
+                    Da benachbarte Elemente nicht in der Teilfolge enthalten
+                    sein dürfen, gilt $m_2 = \max(a_1, a_2)$
+            \end{enumerate}
+            \subparagraph{Induktionsschritt} \hfill \\
+            Gelte die Behauptung für $i-1$ und $i-2$ ($i$ fest).
+
+            \begin{enumerate}
+                \item $a_{i-1}$ ist nicht in der Teilfolge vorhanden. \\
+                    Dann gilt $m_{i-1} = m_{i-2}$.
+                    Da $a$ nur positive Zahlen enthält, vergrößtert das
+                    Hinzufügen von $a_i$ den Wert:
+                    $m_i = m_{i-1} + a_i = m_{i-2} + a_i$.
+
+                \item $a_{i-1}$ ist in der Teilfolge vorhanden. \\
+                    Es gibt die Möglichkeiten, die Teilfolge mit $a_{i-1}$ zu
+                    übernehmen oder die Teilfolge mit $a_{i-2}$ konkateniert
+                    mit $a_i$ zu wählen.
+                    Da das Gewicht maximiert werden soll wird
+                    $m_i = \max(m_{i-2} + a_i, m_{i-1})$ gewählt.
+            \end{enumerate}
+            In beiden Fällen gilt $m_i = \max(m_{i-2} + a_i, m_{i-1})$, was in
+            den Zeilen 10 bis 14 berechnet wird.
+
+            $m_i$ enthält also immer den maximalen Wert einer Teilfolge.
+        \end{proof}
+
+    \item \hfill \\
+        \begin{algorithm}
+            \caption{\textsc{Max Non Adjacent Sum}}
+            \label{alg:2}
+            \begin{algorithmic}[1]
+                \Procedure{MNAS}{$a$}
+                \State $m \gets$ new array of size $n$
+                \State $l \gets$ new array of size $n$
+                \State $m_1 \gets a_1$
+                \State $l_1 \gets 1$
+                \If {$a_2 > a_1$}
+                    \State $m_2 \gets a_2$
+                    \State $l_2 \gets 2$
+                \Else
+                    \State $m_2 \gets a_1$
+                    \State $l_2 \gets 1$
+                \EndIf
+                \For {$i = 3, \ldots, n$}
+                    \If {$m_{i-2} + a_i > m_{i-1}$}
+                        \Comment $a_i$ wird hinzugefügt
+                        \State $m_i \gets m_{i-2} + a_i$
+                        \State $l_i \gets i$
+                    \Else
+                        \Comment $a_i$ wird nicht hinzugefügt
+                        \State $m_i \gets m_{i-1}$
+                        \State $l_i \gets i - 1$
+                    \EndIf
+                \EndFor
+                \State \Call{Print}{$m_n$}
+                \State \Call{Print\_Sequence}{$a, m, l, n$}
+                \EndProcedure
+                \Procedure{Print\_Sequence}{$a, l, k$}
+                \If {$k > 2$}
+                    \State \Call{Print\_Sequence}{$a, l, l_k - 2$}
+                \EndIf
+                \State \Call{Print}{$a_{l_k}$}
+                \EndProcedure
+            \end{algorithmic}
+        \end{algorithm}
+        \paragraph{Korrektheit} \hfill \\
+        In Algorithmus \ref{alg:2} wurde das Array $l$ eingeführt.
+        \begin{behaupt}
+            $l_i$ enthält den Index des letzten Folgengliedes der Teilfolge
+            maximalen Gewichts in dem Abschnitt $a_1, \ldots, a_i$.
+        \end{behaupt}
+        \begin{proof}[Beweis durch vollständige Induktion] \hfill \\
+            \subparagraph{Induktionsanfang}
+            \begin{enumerate}
+                \item $i = 1$ \\
+                    Offensichtlich ist das einzige Element des Abschnitts auch
+                    das letzte Folgenglied: $l_1 = 1$
+                \item $i = 2$ \\
+                    Es wird das Maximum von $a_1$ und $a_2$ gewählt.
+                    Je nach Ergebnis gilt $l_2 = 1$ oder $l_2 = 2$.
+            \end{enumerate}
+
+            \subparagraph{Induktionsschritt}
+            Gelte die Behauptung für $i-1$ und $i-2$ ($i$ fest).
+
+            \begin{enumerate}
+                \item $a_i$ gehört zu der Teilfolge \\
+                    $a_i$ ist das letzte Element des Abschnitts.
+                    Es folgt $l_i = i$.
+                    
+                \item $a_i$ gehört nicht zu der Teilfolge \\
+                    Dann muss $a_{i-1}$ enthalten sein.
+                    Es folgt $l_i = i - 1$.
+            \end{enumerate}
+
+            $l_i$ enthält also immer den den Index des letzten Elements einer
+            Teilfolge mit maximalen Wert.
+        \end{proof}
+
+    \item
+        Die Algorithmen funktionieren in dieser Form nicht, wenn negative
+        Zahlen in $a$ vorhanden sind.
+        Sei $a = -1, -1$.
+        Bei der Ausführung würden $m_1 = m_2 = -1$ gesetzt werden, obwohl eine
+        leere Teilfolge ein höheres Gewicht ($0$) besitzt.
+
+\end{enumerate}
+
 \end{document}
