@@ -12,4 +12,35 @@
 \begin{document}
 \maketitle
 
+\begin{algorithm}
+    \caption{\textsc{Set Cover: Branch and Bound}}
+    \label{alg:bnb}
+    \begin{algorithmic}[1]
+        \Procedure{Set\_Cover\_BnB}{$A, S$}
+        \State $S \gets \left\{ \{ S_i \} \text{ for } 1 \geq i \geq n \right\}$
+        \State $bestsofar \gets \infty$
+        \While {$S \neq \emptyset$}
+            \State choose a $P \in S$
+            \For {$S_k \in \left\{ S_i \ |\  i > \max\{ j \ |\  S_j \in P \} \right\}$}
+                \State $P_k \gets P \cup S_k$
+                \If {$\bigcup_{S_i \in P_k} S_i = A$}
+                    \State $bestsofar \gets |P_k|$
+                \ElsIf {$|P_k| < bestsofar$}
+                \State $S \gets S \cup \{ P_k \}$
+                \EndIf
+            \EndFor
+        \EndWhile
+        \State \Return $bestsofar$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+Im Bound-Schritt wird die Mächtigkeit $|P_k|$ berechnet.
+$P_k$ repräsentiert die Menge an Lösungen, welche die Teilmengen $S_i \in P_k$
+verwenden, um $A$ zu überdecken.
+Da in Zeile 10 $P_k \neq A$ gilt, müssen noch weitere Mengen hinzugenommen
+werden.
+Die Mächtigkeit von $P_k$ ist also eine untere Schranke der Anzahl an Mengen
+für die betrachtete Lösungsmenge.
+
 \end{document}
