@@ -12,4 +12,51 @@
 \begin{document}
 \maketitle
 
+\begin{enumerate}[(a)]
+    \item 
+        Die gewählte Strategie sortiert $A$ und $R$ absteigend, so dass
+        $a_i \geq a_{i+1}$ und $r_i \geq r_{i+1}$ für alle $i$ gilt.
+        Da die Multiplikation kommutativ ist, kann auch aufsteigend sortiert
+        werden.
+
+    \item
+        \begin{behaupt}
+            Die genannte Strategie für zu dem maximalen Wert.
+        \end{behaupt}
+        \begin{proof}
+            Seien $1 \leq i < j \leq n$.
+            Es muss gezeigt werden, dass die sortierte Reihenfolge mindestens
+            ein genauso gutes Ergebnis liefert, wie andere Verfahren.
+            \begin{equation}
+                a_i^{r_i} \cdot a_j^{r_j} \geq a_i^{r_j} \cdot a_j^{r_i}
+                \label{eq:geq}
+            \end{equation}
+            Aus der Strategie folgen $a_i \geq a_j$ und $r_i \geq r_j$.
+            Es gilt also
+            \begin{equation}
+                r_i - r_j \geq 0
+                \text{ und }
+                \forall x \geq 0 : a_i^x \geq a_j^x
+                \text{ .}
+            \end{equation}
+            \begin{equation}
+                \begin{split}
+                    a_i^{r_i - r_j} &\geq a_j^{r_i - r_j} \\
+                    \gdw a_i^{r_j} a_j^{r_j} \cdot a_i^{r_i - r_j}
+                    &\geq a_i^{r_j} a_j^{r_j} \cdot a_j^{r_i - r_j} \\
+                    \gdw a_i^{r_i} a_j^{r_j} &\geq a_i^{r_j} a_j^{r_i}
+                \end{split}
+            \end{equation}
+            Gleichung \eqref{eq:geq} gilt für ein beliebiges Paar von Indizes
+            $i < j$ und auch wenn die Reste der Folgen identisch sind, da auf
+            beiden Seiten ein konstanter Faktor hinzugefügt wird.
+
+
+            
+
+            
+        \end{proof}
+
+\end{enumerate}
+
 \end{document}
