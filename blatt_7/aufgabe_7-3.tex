@@ -12,4 +12,124 @@
 \begin{document}
 \maketitle
 
+\section*{Multiway Cut mit lokaler Suche}
+Es sei eine Startlösung vorhanden, welche korrekt ist, aber über deren Qualität
+keine Aussage gemacht wird.
+Aus der gegebenen Menge zu entfernender Kanten $E'$ kann die Menge der
+Zusammenhangskomponenten $Z$ des resultierenden Graphen $G(V, E \backslash E')$
+gefunden werden.
+
+In der Nachbarschaft dieser Lösung befinden sich alle $Z'$, in denen ein Knoten
+$v$ von einer Menge in eine andere gewechselt ist:
+\begin{equation}
+    \begin{split}
+        Z_i' &= Z_i \backslash \{v\} \\
+        Z_j' &= Z_j \cup \{v\} \\
+        Z_k' &= Z_k \text{ für alle } Z_k \in Z : k \neq i \land k \neq j
+    \end{split}
+\end{equation}
+Bedingung ist, dass die Knoten in allen $Z_i'$ in $G$ jeweils zusammenhängend
+sind.
+Wird die Anzahl an Kanten, welche für den Multiway Cut entfernt werden müssen,
+reduziert, so wird dies als eine bessere Lösung angesehen.
+
+\paragraph{Beispiel (Abb. \ref{fig:local})}
+Seien die dunkel gefärbten Knoten $a, c, e \in S$.
+Die hell gefärbten Knoten befinden sich in der jeweiligen Teilmenge.
+\begin{equation}
+    \begin{split}
+        Z_a &= \left\{ a, b \right\} \\
+        Z_c &= \left\{ c, d \right\} \\
+        Z_e &= \left\{ e \right\}
+    \end{split}
+\end{equation}
+Es müssen $|E'| = 4$ Kanten für den Multiway Cut entfernt werden.
+\begin{equation}
+    E' = \left\{ 
+        \left\{ a, e \right\},
+        \left\{ b, c \right\},
+        \left\{ b, d \right\},
+        \left\{ d, e \right\}
+    \right\}
+\end{equation}
+Von (a) nach (b) wandert der Knoten $b$ in die Zusammenhangskomponente von $c$.
+\begin{equation}
+    \begin{split}
+        Z_a' &= \left\{ a \right\} \\
+        Z_c' &= \left\{ c, b, d \right\} \\
+        Z_e' &= \left\{ e \right\}
+    \end{split}
+\end{equation}
+Nun müssen nur noch $|E''| = 3$ Kanten entfernt werden.
+Damit ist eine bessere Lösung gefunden.
+\begin{equation}
+    E'' = \left\{ 
+        \left\{ a, b \right\},
+        \left\{ a, e \right\},
+        \left\{ d, e \right\}
+    \right\}
+\end{equation}
+
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}[
+                scale=2,
+            ]
+            \tikzset{
+                vertex/.style={
+                    circle,
+                    draw,
+                    fill,
+                }
+            }
+            \node[vertex, red!50!black,   label=left:$a$]  (a) at (0,0) {};
+            \node[vertex, red!50!white,   label=left:$b$]  (b) at (0,1) {};
+            \node[vertex, green!50!black, label=$c$]       (c) at (0,2) {};
+            \node[vertex, green!50!white, label=$d$]       (d) at (1,2) {};
+            \node[vertex, blue!50!black,  label=right:$e$] (e) at (2,1) {};
+            \draw (a) to (b);
+            \draw (a) to (e);
+            \draw (b) to (c);
+            \draw (b) to (d);
+            \draw (c) to (d);
+            \draw (d) to (e);
+        \end{tikzpicture}
+        \caption{vorher $|E'| = 4$}
+        \label{subfig:pre}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}[
+                scale=2,
+            ]
+            \tikzset{
+                vertex/.style={
+                    circle,
+                    draw,
+                    fill,
+                }
+            }
+            \node[vertex, red!50!black,   label=left:$a$]  (a) at (0,0) {};
+            \node[vertex, green!50!white, label=left:$b$]  (b) at (0,1) {};
+            \node[vertex, green!50!black, label=$c$]       (c) at (0,2) {};
+            \node[vertex, green!50!white, label=$d$]       (d) at (1,2) {};
+            \node[vertex, blue!50!black,  label=right:$e$] (e) at (2,1) {};
+            \draw (a) to (b);
+            \draw (a) to (e);
+            \draw (b) to (c);
+            \draw (b) to (d);
+            \draw (c) to (d);
+            \draw (d) to (e);
+        \end{tikzpicture}
+        \caption{nachher $|E'| = 3$}
+        \label{subfig:post}
+    \end{subfigure}
+    \caption{Beispiel für eine bessere Lösung in der Nachbarschaft}
+    \label{fig:local}
+\end{figure}
+
+
 \end{document}
